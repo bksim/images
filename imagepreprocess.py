@@ -1,3 +1,5 @@
+## opens image sequence (gif) and saves individual frames
+## brandon sim, 12/08/2012
 import Image
 import os, sys
 
