@@ -215,6 +215,7 @@ end
 drawedgelist(closedobjects(3), size(im), 1, 'cyan'); axis off;
 hold off
 legend('Original', 'Reflected', 'Location', 'Southeast');
+title('Original and Reflected closed regions for area overlap detection');
 print(100, '-djpeg', 'reflection')
 %% Finds the centroids of the regions left after Canny edge detection to
 % corroborate results
