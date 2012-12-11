@@ -2,7 +2,9 @@
 %edge + overlayed watershed transform = result
 
 %read image
-I = imread('1.jpg');
+I = imread('lilypad.jpg');
+
+I = rgb2gray(I);
 
 %using default threshold for now
 BW = edge(I,'sobel');

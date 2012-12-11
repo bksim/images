@@ -1,1 +1,2 @@
-I = imread('1.jpg')
+I = imread('1.jpg');
+
