@@ -17,45 +17,45 @@ Ix = imfilter(double(I), hx, 'replicate');
 
 %calculate gradient
 gradmag = sqrt(Ix.^2 + Iy.^2);
-imwrite(gradmag, 'MRI_Gradient_Mag.jpg','jpg');
+imwrite(gradmag, 'Gradient_Mag.jpg','jpg');
 %figure, imshow(gradmag,[]), title ('Gradient Magnitude')
 
 %demonstrate oversegmentation of direct watershed of gradient
 L = watershed(gradmag);
 Lrgb = label2rgb(L);
-imwrite(Lrgb, 'MRI_OversegWatershed.jpg', 'jpg');
+imwrite(Lrgb, 'OversegWatershed.jpg', 'jpg');
 %figure, imshow(Lrgb, []), title('Watershed Transform of Gradient - oversegmentation')
 
-%create disk shaped morphological structuring element of size 4 - picked so
+%create disk shaped morphological structuring element of size 6 - picked so
 %not to over or under segment, disk shaped as target structure is round
-se = strel('disk', 4);
+se = strel('disk', 6);
 
 %first method to open: (imopen)
 Io = imopen(I, se);
-imwrite(Io, 'Open_Disk4.jpg', 'jpg');
+imwrite(Io, 'Open_Disk6.jpg', 'jpg');
 %figure, imshow(Io), title('Opening (Io)')
 
 %second method to open: reconstructed (imerode)
 Ie = imerode(I, se);
 Iobr = imreconstruct(Ie, I);
-imwrite(Iobr, 'MRI_OpenReconstuct_Disk4.jpg', 'jpg');
+imwrite(Iobr, 'OpenReconstuct_Disk6.jpg', 'jpg');
 %figure, imshow(Iobr), title('Opening-by-reconstruction (Iobr)')
 
 %first method of closing: (imclose)
 Ioc = imclose(Io, se);
-imwrite(Ioc, 'MRI_Close_Disk4.jpg', 'jpg');
+imwrite(Ioc, 'Close_Disk6.jpg', 'jpg');
 %figure, imshow(Ioc), title('Opening-closing (Ioc)')
 
 %second method to close: reconstructed (imdilate)
 Iobrd = imdilate(Iobr, se);
 Iobrcbr = imreconstruct(imcomplement(Iobrd), imcomplement(Iobr));
 Iobrcbr = imcomplement(Iobrcbr);
-imwrite(Iobrcbr, 'MRI_CloseReconstruct_Disk4.jpg', 'jpg');
+imwrite(Iobrcbr, 'CloseReconstruct_Disk6.jpg', 'jpg');
 %figure, imshow(Iobrcbr), title('Opening-closing by reconstruction (Iobrcbr)')
 
 %use function to store maxima (foreground marker)
 fgm = imregionalmax(Iobrcbr);
-imwrite(fgm, 'MRI_Maxima.jpg', 'jpg');
+imwrite(fgm, 'Maxima.jpg', 'jpg');
 %figure, imshow(fgm), title('Regional maxima of opening-closing by reconstruction (fgm)')
 
 %copy image and superimpose to form new working image
@@ -70,7 +70,7 @@ se2 = strel(ones(3,3));
 %smooth out the foreground markers superimposed
 fgm2 = imclose(fgm, se2);
 fgm3 = imerode(fgm2, se2);
-fgm4 = bwareaopen(fgm3, 20);
+fgm4 = bwareaopen(fgm3, 15);
 I3 = I;
 I3(fgm4) = 255;
 imwrite(I3, 'MRI_MaxmimaSuperSmooth.jpg', 'jpg');

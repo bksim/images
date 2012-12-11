@@ -109,4 +109,4 @@ alpha(0.5);
 hold off;
 
 %export this figure (couldn't export image due to transparency)
-print (1, '-djpeg', 'result')
+print (1, '-djpeg', 'MRI_result')
