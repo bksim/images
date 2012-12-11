@@ -15,14 +15,18 @@ Ix = imfilter(double(I), hx, 'replicate');
 
 %calculate gradient
 gradmag = sqrt(Ix.^2 + Iy.^2);
-imwrite(gradmag, 'MRI_Gradient_Mag.jpg','jpg');
-%figure, imshow(gradmag,[]), title ('Gradient Magnitude')
+figure(1), imshow(gradmag, []), title ('Gradient Magnitude')
+
+%export this figure, need to scale range so coudln't just imwrite
+print (1, '-djpeg', 'MRI_Gradient_Mag')
 
 %demonstrate oversegmentation of direct watershed of gradient
 L = watershed(gradmag);
 Lrgb = label2rgb(L);
-imwrite(Lrgb, 'MRI_OversegWatershed.jpg', 'jpg');
-%figure, imshow(Lrgb, []), title('Watershed Transform of Gradient - oversegmentation')
+figure(2), imshow(Lrgb, []), title('Oversegmented Watershed')
+
+%export this figure (couldn't export image due to transparency)
+print (2, '-djpeg', 'MRI_Overseg_Watershed')
 
 %create disk shaped morphological structuring element of size 4 - picked so
 %not to over or under segment, disk shaped as target structure is round
@@ -101,15 +105,13 @@ Lrgb = label2rgb(L, 'jet', 'w', 'shuffle');
 imwrite(Lrgb, 'MRI_Color_Watershed.jpg', 'jpg');
 %figure, imshow(Lrgb), title('Colored watershed label matrix (Lrgb)')
 
-
 %superimpose color on original image to see what the shading represents
-figure(1), imshow(Lrgb)
+figure(3), imshow(Lrgb)
 title('Color Watershed Superimposed on Original Image')
 hold on;
 handle = imshow(I);
-f = getframe(1);
 alpha(0.5);
 
 hold off;
 %export this figure (couldn't export image due to transparency)
-print (1, '-djpeg', 'MRI_result')
+print (3, '-djpeg', 'MRI_result')
