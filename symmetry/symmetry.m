@@ -193,7 +193,7 @@ overlapresults = zeros(nchoosek(numclosed,2),3);
 theta = s.Orientation;
 centroidbrain = [s.Centroid(1);s.Centroid(2)];
 imsize = size(im);
-figure,
+figure(100),
 imshow(im);
 hold on
 for pairi = 1:numclosed,
@@ -202,7 +202,6 @@ for pairi = 1:numclosed,
         polygon2 = closedobjects{pairj};
         % flips first in pair
         polygon1 = reflectpolygon(polygon, theta, centroidbrain);
-        
         drawedgelist({polygon2}, size(im), 1, 'cyan');axis off;
         drawedgelist({polygon1}, size(im), 1, 'red');axis off;
         
@@ -213,8 +212,10 @@ for pairi = 1:numclosed,
         paircounter = paircounter+1;
     end
 end
+drawedgelist(closedobjects(3), size(im), 1, 'cyan'); axis off;
 hold off
 legend('Original', 'Reflected', 'Location', 'Southeast');
+print(100, '-djpeg', 'reflection')
 %% Finds the centroids of the regions left after Canny edge detection to
 % corroborate results
 s_canny  = regionprops(cannyout, 'centroid');
