@@ -1,7 +1,10 @@
-%apply watershed segmentation on the MRI image
+%generalized watershed method starting with colored image
 
 %read image
-I = imread('original.jpg');
+I = imread('lilypad.jpg');
+
+%convert RGB into grayscale
+I = rgb2gray(I);
 
 %horizontal edge filter
 hy = fspecial('sobel');
