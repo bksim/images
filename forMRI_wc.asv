@@ -2,9 +2,7 @@
 %edge + overlayed watershed transform = result
 
 %read image
-I = imread('lilypad.jpg');
-
-I = rgb2gray(I);
+I = imread('1.jpg');
 
 %using default threshold for now
 BW = edge(I,'sobel');
@@ -28,23 +26,24 @@ Iy = imfilter(double(I), hy, 'replicate');
 Ix = imfilter(double(I), hx, 'replicate');
 
 gradmag = sqrt(Ix.^2 + Iy.^2);
-figure, imshow(gradmag,[]), title ('Gradient Magnitude')
+%figure, imshow(gradmag,[]), title ('Gradient Magnitude')
 
 L = watershed(gradmag);
 Lrgb = label2rgb(L);
-figure, imshow(Lrgb, []), title('Watershed Transform of Gradient - oversegmentation')
+%figure, imshow(Lrgb, []), title('Watershed Transform of Gradient - oversegmentation')
 
-se = strel('disk', 3);
+%use 2-5 5 makes the tumor fade away completely
+se = strel('disk', 4);
 Io = imopen(I, se);
-figure, imshow(Io), title('Opening (Io)')
+%figure, imshow(Io), title('Opening (Io)')
 
 Ie = imerode(I, se);
 Iobr = imreconstruct(Ie, I);
 figure, imshow(Iobr), title('Opening-by-reconstruction (Iobr)')
 
 Ioc = imclose(Io, se);
-figure, imshow(Ioc), title('Opening-closing (Ioc)')
-%{
+%figure, imshow(Ioc), title('Opening-closing (Ioc)')
+
 Iobrd = imdilate(Iobr, se);
 Iobrcbr = imreconstruct(imcomplement(Iobrd), imcomplement(Iobr));
 Iobrcbr = imcomplement(Iobrcbr);
@@ -82,6 +81,7 @@ figure, imshow(bgm), title('Watershed ridge lines (bgm)')
 gradmag2 = imimposemin(gradmag, bgm | fgm4);
 L = watershed(gradmag2);
 
+%{
 I4 = I;
 I4(imdilate(L == 0, ones(3, 3)) | bgm | fgm4) = 255;
 figure, imshow(I4)
