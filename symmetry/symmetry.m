@@ -51,7 +51,9 @@ clear;
 %% Reads image and displays initial results of Canny edge detection
 % read image
 im = imread('original.jpg');
+%im = imread('t2_axial95.jpg');
 
+%im = rgb2gray(im);
 % Canny edge detection for features, with normal settings
 cannyout = edge(im,'canny', [0.3  0.7], 2);
 % Canny edge detection for brain outline, with extremely high smoothing
@@ -113,7 +115,7 @@ print(97,'-djpeg','ellipse_perimeter');
 %%Draws ellipses around canny output (interior)
 figure(98),
 drawimage = cannyout;
-s = regionprops(drawimage, 'Orientation', 'MajorAxisLength', ...
+s_int = regionprops(drawimage, 'Orientation', 'MajorAxisLength', ...
     'MinorAxisLength', 'Eccentricity', 'Centroid');
 
 imshow(drawimage)
@@ -123,14 +125,14 @@ phi = linspace(0,2*pi,50);
 cosphi = cos(phi);
 sinphi = sin(phi);
 
-for k = 1:length(s)
-    xbar = s(k).Centroid(1);
-    ybar = s(k).Centroid(2);
+for k = 1:length(s_int)
+    xbar = s_int(k).Centroid(1);
+    ybar = s_int(k).Centroid(2);
 
-    a = s(k).MajorAxisLength/2;
-    b = s(k).MinorAxisLength/2;
+    a = s_int(k).MajorAxisLength/2;
+    b = s_int(k).MinorAxisLength/2;
 
-    theta = pi*s(k).Orientation/180;
+    theta = pi*s_int(k).Orientation/180;
     R = [ cos(theta)   sin(theta)
          -sin(theta)   cos(theta)];
 
@@ -199,7 +201,7 @@ for pairi = 1:numclosed,
         polygon = closedobjects{pairi};
         polygon2 = closedobjects{pairj};
         % flips first in pair
-        polygon1 = reflectpolygon(polygon, 0, centroidbrain);
+        polygon1 = reflectpolygon(polygon, theta, centroidbrain);
         
         drawedgelist({polygon2}, size(im), 1, 'cyan');axis off;
         drawedgelist({polygon1}, size(im), 1, 'red');axis off;
@@ -207,7 +209,7 @@ for pairi = 1:numclosed,
         % calculates overlap of the pair and stores in overlapresults
         tempoverlap = calculateoverlap(polygon1,polygon2,imsize(1),imsize(2));
         overlapresults(paircounter,:) = [pairi pairj tempoverlap];
-        
+ 
         paircounter = paircounter+1;
     end
 end

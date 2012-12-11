@@ -24,17 +24,14 @@ function reflectedpolygon = reflectpolygon(polygon, angle, centroid)
     polygon = polygon';
     m = length(polygon);
     
-    % subtracts [x_c; y_c] from each column in polygon
-    polygonshift = polygon - repmat(centroid,1,m);
+    % (x,y)->(x-x_c, -y+y_c)
+    % transforms to our shifted coordinate system
+    polygonshift = [1 0;0 -1]*polygon + repmat([centroid(1),1,m);
     
     % defines rotation matrix
     T = [cosd(2*angle) sind(2*angle);sind(2*angle) -cosd(2*angle)];
-    reflectedpolygon = zeros(m,2);
     
-    % rotates the polygon's vertices across line
-    reflectedpolygon = 
-        
-        
-    end
-    
+    % rotates the polygon's vertices across line,
+    % transforms back to our original coordinate system
+    reflectedpolygon = round(((T*polygonshift) + repmat(centroid,1,m))');
 end

@@ -207,7 +207,7 @@ for pairi = 1:numclosed,
         % calculates overlap of the pair and stores in overlapresults
         tempoverlap = calculateoverlap(polygon1,polygon2,imsize(1),imsize(2));
         overlapresults(paircounter,:) = [pairi pairj tempoverlap];
-        
+ 
         paircounter = paircounter+1;
     end
 end
