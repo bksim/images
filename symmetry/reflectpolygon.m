@@ -33,5 +33,5 @@ function reflectedpolygon = reflectpolygon(polygon, angle, centroid)
     
     % rotates the polygon's vertices across line,
     % transforms back to our original coordinate system
-    reflectedpolygon = ((T*polygonshift) + repmat(centroid,1,m))';
+    reflectedpolygon = round(((T*polygonshift) + repmat(centroid,1,m))');
 end

@@ -32,7 +32,8 @@
 % candidate
 %
 % dependencies: 
-% calculateoverlap.m, written by Brandon Sim,
+% calculateoverlap.m, reflectpolygon.m,
+% written by Brandon Sim,
 %
 % edgelink.m, drawedgelist.m, lineseg.m, maxlinedev.m,
 % findendsjunctions.m, cleanedgelist.m 
@@ -159,13 +160,16 @@ print(98,'-djpeg','ellipse_interior');
 % Draws each region that is closed and calculates their enclosed area
 figure(99)
 imshow(im);
-colors = {'red';'cyan';'green'};
+colors = {'red';'cyan';'green'}; %temporary
 tempcounter = 1;
 hold on
 for i = 1:length(edgelist),
     temp = edgelist{i};
     if temp(1,:) == temp(length(temp),:)
-        drawedgelist(edgelist(i), size(im), 1, colors{tempcounter}); axis off; %draw
+        drawedgelist(edgelist(i), size(im), 1, colors{tempcounter}); 
+        axis off; %draw
+        %stores all closed objects into cell array
+        closedobjects{tempcounter} = edgelist{i}; 
         areas{tempcounter} = num2str(polyarea(temp(:,1), temp(:,2)));
         tempcounter = tempcounter + 1;
         %calculates area of enclosed regions and stores for later use
@@ -175,18 +179,51 @@ hold off
 title('Closed regions, with areas in legend');
 legend(areas, 'Location', 'SouthEast');
 print(99,'-djpeg','closedregions');
-
+%% takes closedobjects cell array and checks pairwise for overlap
+numclosed = length(closedobjects);
+paircounter = 1;
+% generates all (n choose 2) pairwise combinations and checks for overlap
+% (n choose 2)-by-3 matrix in format:
+% object1# object2# pixelOverlap
+% object1# object2# pixelOverlap
+% ...
+overlapresults = zeros(nchoosek(numclosed,2),3);
+theta = s.Orientation;
+centroidbrain = [s.Centroid(1);s.Centroid(2)];
+imsize = size(im);
+figure,
+imshow(im);
+hold on
+for pairi = 1:numclosed,
+    for pairj = 1:(pairi-1),
+        polygon = closedobjects{pairi};
+        polygon2 = closedobjects{pairj};
+        % flips first in pair
+        polygon1 = reflectpolygon(polygon, 0, centroidbrain);
+        
+        drawedgelist({polygon2}, size(im), 1, 'cyan');axis off;
+        drawedgelist({polygon1}, size(im), 1, 'red');axis off;
+        
+        % calculates overlap of the pair and stores in overlapresults
+        tempoverlap = calculateoverlap(polygon1,polygon2,imsize(1),imsize(2));
+        overlapresults(paircounter,:) = [pairi pairj tempoverlap];
+        
+        paircounter = paircounter+1;
+    end
+end
+hold off
+legend('Original', 'Reflected', 'Location', 'Southeast');
 %% Finds the centroids of the regions left after Canny edge detection to
 % corroborate results
 s_canny  = regionprops(cannyout, 'centroid');
 centroids = cat(1, s_canny.Centroid);
-figure(100)
+figure(150)
 imshow(im)
 hold on
 plot(centroids(:,1), centroids(:,2), 'r*')
 hold off
 title('Centroids of regions after Canny edge detection');
-print(100, '-djpeg', 'centroids')
+print(150, '-djpeg', 'centroids')
 
 %% Below code is optional: unnecessary at the moment (12/11/2012)
 % Fit line segments to the edgelists
