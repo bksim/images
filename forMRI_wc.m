@@ -1,4 +1,5 @@
 %apply watershed segmentation on the MRI image
+clear;
 
 %read image
 I = imread('original.jpg');
@@ -100,13 +101,15 @@ Lrgb = label2rgb(L, 'jet', 'w', 'shuffle');
 imwrite(Lrgb, 'MRI_Color_Watershed.jpg', 'jpg');
 %figure, imshow(Lrgb), title('Colored watershed label matrix (Lrgb)')
 
+
 %superimpose color on original image to see what the shading represents
 figure(1), imshow(Lrgb)
 title('Color Watershed Superimposed on Original Image')
 hold on;
 handle = imshow(I);
+f = getframe(1);
 alpha(0.5);
-hold off;
 
+hold off;
 %export this figure (couldn't export image due to transparency)
 print (1, '-djpeg', 'MRI_result')
