@@ -2,7 +2,7 @@
 clear;
 
 %read image
-I = imread('cannyout.jpg');
+I = imread('original.jpg');
 
 %horizontal edge filter
 hy = fspecial('sobel');
