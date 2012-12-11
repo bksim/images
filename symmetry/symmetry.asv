@@ -32,6 +32,9 @@
 % candidate
 %
 % dependencies: 
+% calculateoverlap.m, reflectpolygon.m,
+% written by Brandon Sim,
+%
 % edgelink.m, drawedgelist.m, lineseg.m, maxlinedev.m,
 % findendsjunctions.m, cleanedgelist.m 
 % (http://www.csse.uwa.edu.au/~pk/research/matlabfns/)
@@ -41,7 +44,7 @@
 % -ellipse-measurements/)
 %
 % Rest of code, such as closed edge detection, and all other code in this 
-% file written by the authors.
+% file written by ~bks
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 clear;
 

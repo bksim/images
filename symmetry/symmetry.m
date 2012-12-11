@@ -32,6 +32,8 @@
 % candidate
 %
 % dependencies: 
+% calculateoverlap.m, written by Brandon Sim,
+%
 % edgelink.m, drawedgelist.m, lineseg.m, maxlinedev.m,
 % findendsjunctions.m, cleanedgelist.m 
 % (http://www.csse.uwa.edu.au/~pk/research/matlabfns/)
@@ -41,7 +43,7 @@
 % -ellipse-measurements/)
 %
 % Rest of code, such as closed edge detection, and all other code in this 
-% file written by the authors.
+% file written by ~bks
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 clear;
 
@@ -71,7 +73,7 @@ imwrite(cannyPerimeter, 'cannyout_perimeter_thres_0.1_0.9_sigma_15.jpg', ...
 
 %% Draws ellipse described above (with same second moment, etc) around the
 % edge of the brain, finds its orientation (detect axis of orientation)
-figure,
+figure(97),
 drawimage = cannyPerimeter;
 s = regionprops(drawimage, 'Orientation', 'MajorAxisLength', ...
     'MinorAxisLength', 'Eccentricity', 'Centroid');
@@ -103,6 +105,46 @@ for k = 1:length(s)
     plot(x,y,'r','LineWidth',2);
 end
 hold off
+title('Ellipse generated for brain perimeter');
+print(97,'-djpeg','ellipse_perimeter');
+
+%%
+%%Draws ellipses around canny output (interior)
+figure(98),
+drawimage = cannyout;
+s = regionprops(drawimage, 'Orientation', 'MajorAxisLength', ...
+    'MinorAxisLength', 'Eccentricity', 'Centroid');
+
+imshow(drawimage)
+hold on
+
+phi = linspace(0,2*pi,50);
+cosphi = cos(phi);
+sinphi = sin(phi);
+
+for k = 1:length(s)
+    xbar = s(k).Centroid(1);
+    ybar = s(k).Centroid(2);
+
+    a = s(k).MajorAxisLength/2;
+    b = s(k).MinorAxisLength/2;
+
+    theta = pi*s(k).Orientation/180;
+    R = [ cos(theta)   sin(theta)
+         -sin(theta)   cos(theta)];
+
+    xy = [a*cosphi; b*sinphi];
+    xy = R*xy;
+
+    x = xy(1,:) + xbar;
+    y = xy(2,:) + ybar;
+
+    plot(x,y,'r','LineWidth',2);
+end
+hold off
+title('Ellipse generated for brain perimeter');
+print(98,'-djpeg','ellipse_interior');
+
 %%
 % Links edge pixels together into lists of sequential edge points, one
 % list for each edge contour. A contour/edgelist starts/stops at an 
@@ -117,21 +159,22 @@ hold off
 % Draws each region that is closed and calculates their enclosed area
 figure(99)
 imshow(im);
-colors = ['red';'blue';'green'];
+colors = {'red';'cyan';'green'};
 tempcounter = 1;
 hold on
 for i = 1:length(edgelist),
     temp = edgelist{i};
     if temp(1,:) == temp(length(temp),:)
-        drawedgelist(edgelist(i), size(im), 1, colors(tempcounter)); axis off; %draw
+        drawedgelist(edgelist(i), size(im), 1, colors{tempcounter}); axis off; %draw
         areas{tempcounter} = num2str(polyarea(temp(:,1), temp(:,2)));
         tempcounter = tempcounter + 1;
         %calculates area of enclosed regions and stores for later use
     end
 end
 hold off
-title('Closed regions, with areas');
-legend(areas);
+title('Closed regions, with areas in legend');
+legend(areas, 'Location', 'SouthEast');
+print(99,'-djpeg','closedregions');
 
 %% Finds the centroids of the regions left after Canny edge detection to
 % corroborate results
@@ -140,7 +183,7 @@ centroids = cat(1, s_canny.Centroid);
 figure(100)
 imshow(im)
 hold on
-plot(centroids(:,1), centroids(:,2), 'b*')
+plot(centroids(:,1), centroids(:,2), 'r*')
 hold off
 title('Centroids of regions after Canny edge detection');
 print(100, '-djpeg', 'centroids')
