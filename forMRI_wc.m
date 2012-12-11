@@ -34,7 +34,7 @@ se = strel('disk', 4);
 
 %first method to open: (imopen)
 Io = imopen(I, se);
-imwrite(Io, 'Open_Disk4.jpg', 'jpg');
+imwrite(Io, 'MRI_Open_Disk4.jpg', 'jpg');
 %figure, imshow(Io), title('Opening (Io)')
 
 %second method to open: reconstructed (imerode)
