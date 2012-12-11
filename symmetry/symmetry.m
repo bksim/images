@@ -32,6 +32,9 @@
 % candidate
 %
 % dependencies: 
+% calculateoverlap.m, reflectpolygon.m,
+% written by Brandon Sim,
+%
 % edgelink.m, drawedgelist.m, lineseg.m, maxlinedev.m,
 % findendsjunctions.m, cleanedgelist.m 
 % (http://www.csse.uwa.edu.au/~pk/research/matlabfns/)
@@ -41,14 +44,16 @@
 % -ellipse-measurements/)
 %
 % Rest of code, such as closed edge detection, and all other code in this 
-% file written by the authors.
+% file written by ~bks
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 clear;
 
 %% Reads image and displays initial results of Canny edge detection
 % read image
 im = imread('original.jpg');
+%im = imread('t2_axial95.jpg');
 
+%im = rgb2gray(im);
 % Canny edge detection for features, with normal settings
 cannyout = edge(im,'canny', [0.3  0.7], 2);
 % Canny edge detection for brain outline, with extremely high smoothing
@@ -71,7 +76,7 @@ imwrite(cannyPerimeter, 'cannyout_perimeter_thres_0.1_0.9_sigma_15.jpg', ...
 
 %% Draws ellipse described above (with same second moment, etc) around the
 % edge of the brain, finds its orientation (detect axis of orientation)
-figure,
+figure(97),
 drawimage = cannyPerimeter;
 s = regionprops(drawimage, 'Orientation', 'MajorAxisLength', ...
     'MinorAxisLength', 'Eccentricity', 'Centroid');
@@ -103,6 +108,46 @@ for k = 1:length(s)
     plot(x,y,'r','LineWidth',2);
 end
 hold off
+title('Ellipse generated for brain perimeter');
+print(97,'-djpeg','ellipse_perimeter');
+
+%%
+%%Draws ellipses around canny output (interior)
+figure(98),
+drawimage = cannyout;
+s_int = regionprops(drawimage, 'Orientation', 'MajorAxisLength', ...
+    'MinorAxisLength', 'Eccentricity', 'Centroid');
+
+imshow(drawimage)
+hold on
+
+phi = linspace(0,2*pi,50);
+cosphi = cos(phi);
+sinphi = sin(phi);
+
+for k = 1:length(s_int)
+    xbar = s_int(k).Centroid(1);
+    ybar = s_int(k).Centroid(2);
+
+    a = s_int(k).MajorAxisLength/2;
+    b = s_int(k).MinorAxisLength/2;
+
+    theta = pi*s_int(k).Orientation/180;
+    R = [ cos(theta)   sin(theta)
+         -sin(theta)   cos(theta)];
+
+    xy = [a*cosphi; b*sinphi];
+    xy = R*xy;
+
+    x = xy(1,:) + xbar;
+    y = xy(2,:) + ybar;
+
+    plot(x,y,'r','LineWidth',2);
+end
+hold off
+title('Ellipse generated for brain perimeter');
+print(98,'-djpeg','ellipse_interior');
+
 %%
 % Links edge pixels together into lists of sequential edge points, one
 % list for each edge contour. A contour/edgelist starts/stops at an 
@@ -117,33 +162,71 @@ hold off
 % Draws each region that is closed and calculates their enclosed area
 figure(99)
 imshow(im);
-colors = ['red';'blue';'green'];
+colors = {'red';'cyan';'green'}; %temporary
 tempcounter = 1;
 hold on
 for i = 1:length(edgelist),
     temp = edgelist{i};
     if temp(1,:) == temp(length(temp),:)
-        drawedgelist(edgelist(i), size(im), 1, colors(tempcounter)); axis off; %draw
+        drawedgelist(edgelist(i), size(im), 1, colors{tempcounter}); 
+        axis off; %draw
+        %stores all closed objects into cell array
+        closedobjects{tempcounter} = edgelist{i}; 
         areas{tempcounter} = num2str(polyarea(temp(:,1), temp(:,2)));
         tempcounter = tempcounter + 1;
         %calculates area of enclosed regions and stores for later use
     end
 end
 hold off
-title('Closed regions, with areas');
-legend(areas);
-
+title('Closed regions, with areas in legend');
+legend(areas, 'Location', 'SouthEast');
+print(99,'-djpeg','closedregions');
+%% takes closedobjects cell array and checks pairwise for overlap
+numclosed = length(closedobjects);
+paircounter = 1;
+% generates all (n choose 2) pairwise combinations and checks for overlap
+% (n choose 2)-by-3 matrix in format:
+% object1# object2# pixelOverlap
+% object1# object2# pixelOverlap
+% ...
+overlapresults = zeros(nchoosek(numclosed,2),3);
+theta = s.Orientation;
+centroidbrain = [s.Centroid(1);s.Centroid(2)];
+imsize = size(im);
+figure(100),
+imshow(im);
+hold on
+for pairi = 1:numclosed,
+    for pairj = 1:(pairi-1),
+        polygon = closedobjects{pairi};
+        polygon2 = closedobjects{pairj};
+        % flips first in pair
+        polygon1 = reflectpolygon(polygon, theta, centroidbrain);
+        drawedgelist({polygon2}, size(im), 1, 'cyan');axis off;
+        drawedgelist({polygon1}, size(im), 1, 'red');axis off;
+        
+        % calculates overlap of the pair and stores in overlapresults
+        tempoverlap = calculateoverlap(polygon1,polygon2,imsize(1),imsize(2));
+        overlapresults(paircounter,:) = [pairi pairj tempoverlap];
+ 
+        paircounter = paircounter+1;
+    end
+end
+drawedgelist(closedobjects(3), size(im), 1, 'cyan'); axis off;
+hold off
+legend('Original', 'Reflected', 'Location', 'Southeast');
+print(100, '-djpeg', 'reflection')
 %% Finds the centroids of the regions left after Canny edge detection to
 % corroborate results
 s_canny  = regionprops(cannyout, 'centroid');
 centroids = cat(1, s_canny.Centroid);
-figure(100)
+figure(150)
 imshow(im)
 hold on
-plot(centroids(:,1), centroids(:,2), 'b*')
+plot(centroids(:,1), centroids(:,2), 'r*')
 hold off
 title('Centroids of regions after Canny edge detection');
-print(100, '-djpeg', 'centroids')
+print(150, '-djpeg', 'centroids')
 
 %% Below code is optional: unnecessary at the moment (12/11/2012)
 % Fit line segments to the edgelists
