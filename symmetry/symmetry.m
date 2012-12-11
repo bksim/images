@@ -115,25 +115,35 @@ hold off
 % Detects if edges are closed by checking if first and last elements in
 % each edge are equal
 % Draws each region that is closed and calculates their enclosed area
+figure(99)
+imshow(im);
+colors = ['red';'blue';'green'];
+tempcounter = 1;
+hold on
 for i = 1:length(edgelist),
     temp = edgelist{i};
     if temp(1,:) == temp(length(temp),:)
-        figure,
-        drawedgelist(edgelist(i), size(im), 1, 'red'); axis off; %draw
-        title(polyarea(temp(:,1), temp(:,2))); 
-        %calculates area of enclosed regions and displays in titles
+        drawedgelist(edgelist(i), size(im), 1, colors(tempcounter)); axis off; %draw
+        areas{tempcounter} = num2str(polyarea(temp(:,1), temp(:,2)));
+        tempcounter = tempcounter + 1;
+        %calculates area of enclosed regions and stores for later use
     end
 end
+hold off
+title('Closed regions, with areas');
+legend(areas);
 
 %% Finds the centroids of the regions left after Canny edge detection to
 % corroborate results
 s_canny  = regionprops(cannyout, 'centroid');
 centroids = cat(1, s_canny.Centroid);
-figure
+figure(100)
 imshow(im)
 hold on
 plot(centroids(:,1), centroids(:,2), 'b*')
 hold off
+title('Centroids of regions after Canny edge detection');
+print(100, '-djpeg', 'centroids')
 
 %% Below code is optional: unnecessary at the moment (12/11/2012)
 % Fit line segments to the edgelists
