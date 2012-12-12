@@ -7,6 +7,7 @@
 % 0's if centroid is not found
 %
 % dependencies: findcentroids.m
+clear;
 
 numfiles = 130;
 centroiddata = zeros(numfiles,3);
@@ -25,4 +26,14 @@ end
 differences = zeros(size(centroiddata,1)-1,1);
 for i = 1:size(centroiddata,1)-1,
     differences(i) = norm(centroiddata(i,2:3)-centroiddata(i+1,2:3));
+end
+
+threshold = 1;%if less than threshold, flag as anomaly
+for i = 1:size(differences),
+   if differences(i) < threshold && differences(i)~=0,
+       ['Warning: possible tumor detected. Frames ', num2str(i), ', ', ...
+           num2str(i+1), '; Difference: ', num2str(differences(i))]
+      centroiddata(i,2:3)
+      centroiddata(i+1,2:3);
+   end
 end
