@@ -55,18 +55,21 @@ Iobrd = imdilate(Iobr, se);
 Iobrcbr = imreconstruct(imcomplement(Iobrd), imcomplement(Iobr));
 Iobrcbr = imcomplement(Iobrcbr);
 imwrite(Iobrcbr, 'CloseReconstruct_Disk6.jpg', 'jpg');
-%figure, imshow(Iobrcbr), title('Opening-closing by reconstruction (Iobrcbr)')
+%figure, imshow(Iobrcbr), title('Opening-closing by reconstruction
+%(Iobrcbr)')
 
 %use function to store maxima (foreground marker)
 fgm = imregionalmax(Iobrcbr);
 imwrite(fgm, 'Maxima.jpg', 'jpg');
-%figure, imshow(fgm), title('Regional maxima of opening-closing by reconstruction (fgm)')
+%figure, imshow(fgm), title('Regional maxima of opening-closing by
+%reconstruction (fgm)')
 
 %copy image and superimpose to form new working image
 I2 = I;
 I2(fgm) = 255;
 imwrite(I2, 'MaximaSuperimposed.jpg', 'jpg');
-%figure, imshow(I2), title('Regional maxima superimposed on original image (I2)')
+%figure, imshow(I2), title('Regional maxima superimposed on original image
+%(I2)')
 
 %create a new morphological element to smooth out the foreground markers
 se2 = strel(ones(3,3));
@@ -78,13 +81,15 @@ fgm4 = bwareaopen(fgm3, 15);
 I3 = I;
 I3(fgm4) = 255;
 imwrite(I3, 'MaxmimaSuperSmooth.jpg', 'jpg');
-%figure, imshow(I3), title('Modified regional maxima superimposed on original image (fgm4)')
+%figure, imshow(I3), title('Modified regional maxima superimposed on
+%original image (fgm4)')
 
 %identify background pixels - anything below a certain threshold is
 %"background"
 bw = im2bw(Iobrcbr, graythresh(Iobrcbr));
 imwrite(bw, 'Background_Threshold.jpg', 'jpg');
-%figure, imshow(bw), title('Thresholded opening-closing by reconstruction (bw)')
+%figure, imshow(bw), title('Thresholded opening-closing by reconstruction
+%(bw)')
 
 %adapt background to form watershed ridge lines (where there is little
 %foreground, mark off)
@@ -100,7 +105,8 @@ L = watershed(gradmag2);
 I4 = I;
 I4(imdilate(L == 0, ones(3, 3)) | bgm | fgm4) = 255;
 imwrite(I4, 'All_Markers_Super.jpg', 'jpg');
-%figure, imshow(I4), title('Markers and object boundaries superimposed on original image (I4)')
+%figure, imshow(I4), title('Markers and object boundaries superimposed on
+%original image (I4)')
 
 %color image visualization
 Lrgb = label2rgb(L, 'jet', 'w', 'shuffle');
