@@ -15,7 +15,7 @@
 \BOOKMARK [1][-]{section.9}{Appendix B: Symmetry Analysis Images}{}% 15
 \BOOKMARK [1][-]{section.10}{Appendix C: MATLAB code}{}% 16
 \BOOKMARK [2][-]{subsection.10.1}{Watershed Segmentation Code}{section.10}% 17
-\BOOKMARK [3][-]{subsubsection.10.1.1}{filename.m}{subsection.10.1}% 18
+\BOOKMARK [3][-]{subsubsection.10.1.1}{watershedMethod.m}{subsection.10.1}% 18
 \BOOKMARK [2][-]{subsection.10.2}{Symmetry Analysis Code}{section.10}% 19
 \BOOKMARK [3][-]{subsubsection.10.2.1}{filename.m}{subsection.10.2}% 20
 \BOOKMARK [2][-]{subsection.10.3}{Anomaly Detection Code}{section.10}% 21

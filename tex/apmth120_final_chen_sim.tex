@@ -64,10 +64,10 @@
 
 \section{Introduction and Motivation}
 
-Magnetic resonance imaging, or MRI, is one of the most accurate and available types of medical imaging that is used to detect diseases throughout the body, ranging from severe bleeding to cancerous growths (SOURCE A).  The prevalence of MRI scans for diagnosis in the medical field is well represented by the sheer number of expensive yet critical MRI equipment - there are over 10,000 MRI machines in just the United States alone (SOURCE B).  When a doctor administers an MRI scan. the machine stores many 2D slices of the brain. These scans are also taken from various axials. From this collection of slices, the doctor must look through each frame for possible irregularities that could confirm the existence of a tumor.  The person reading the MRI image must flip through each of the hundreds of frames systematically - there is no shortcut to knowing about where a tumor could be.  Often times, the doctor must look at the same images multiple times even if her or she does not see a tumor just to make sure a small tumor (which could be as large as just spanning 3 frames and only tens of pixels) was not missed.  The requirement of such a methodical but tedious search inspired us to develop approaches to automate the reading of a set of MRI images. Such a project lends itself very well to linear algebra. We are able to represent grayscale MRI images as matrices of numbers, allowing us to use matrix manipulations and linear algebraic algorithms. For the scope of this project, we limited our dataset to MRI images of the brain. We explored traditional image processing techniques as well as developed our own more specialized technique to identify possible tumor candidates from a given 2D image (one slice of the brain). We then extended this search to an entire stack of images representing the full 3D brain. Although we recognize that our algorithm will probably not fully replace a doctor's screening of MRIs, for liability and accuracy concerns, we do hope that it will both serve as a valuable backup ``safety net'' for the doctor, as well as be able to suggest likely tumor candidates that the doctor can focus special attention on.
+Magnetic resonance imaging, or MRI, is one of the most accurate and available types of medical imaging that is used to detect diseases throughout the body, ranging from severe bleeding to cancerous growths (3).  The prevalence of MRI scans for diagnosis in the medical field is well represented by the sheer number of expensive yet critical MRI equipment - there are over 10,000 MRI machines in just the United States alone (4).  When a doctor administers an MRI scan. the machine stores many 2D slices of the brain. These scans are also taken from various axials. From this collection of slices, the doctor must look through each frame for possible irregularities that could confirm the existence of a tumor.  The person reading the MRI image must flip through each of the hundreds of frames systematically - there is no shortcut to knowing about where a tumor could be.  Often times, the doctor must look at the same images multiple times even if her or she does not see a tumor just to make sure a small tumor (which could be as large as just spanning 3 frames and only tens of pixels) was not missed.  The requirement of such a methodical but tedious search inspired us to develop approaches to automate the reading of a set of MRI images. Such a project lends itself very well to linear algebra. We are able to represent grayscale MRI images as matrices of numbers, allowing us to use matrix manipulations and linear algebraic algorithms. For the scope of this project, we limited our dataset to MRI images of the brain. We explored traditional image processing techniques as well as developed our own more specialized technique to identify possible tumor candidates from a given 2D image (one slice of the brain). We then extended this search to an entire stack of images representing the full 3D brain. Although we recognize that our algorithm will probably not fully replace a doctor's screening of MRIs, for liability and accuracy concerns, we do hope that it will both serve as a valuable backup ``safety net'' for the doctor, as well as be able to suggest likely tumor candidates that the doctor can focus special attention on.
 
 \section{Previous Work}
-Other authors of literature in this field have employed a large range of image processing and statistical methods in hopes of automating various aspects of MRI scan analysis. These approaches range from combinations of image processing filters, segmentation, dimensionality reduction algorithms, to statistical and machine learning approaches (BAGHDAD, CALCUTTA). In this paper, we experiment with a watershed segmentation technique first, a more traditional image processing technique. We then create a new approach that utilizes the symmetry of the brain, and use the two approaches to verify and strengthen our results.
+Other authors of literature in this field have employed a large range of image processing and statistical methods in hopes of automating various aspects of MRI scan analysis. These approaches range from combinations of image processing filters, segmentation, dimensionality reduction algorithms, to statistical and machine learning approaches (7,8). In this paper, we experiment with a watershed segmentation technique first, a more traditional image processing technique. We then create a new approach that utilizes the symmetry of the brain, and use the two approaches to verify and strengthen our results.
 
 \section{Methodology}
 
@@ -120,25 +120,55 @@ For both cases, we started with the 2D MRI snapshot below that we selected from 
 
 \subsection{Watershed Segmentation}
 
-Because the watershed segmentation algorithm is designed for more complex (3D), we will also show the output for a given sample colored image, a lily pad landscape, in addition to the MRI image. The end output, the colored watershed visualization after image processing superimposed onto the original image is shown below.
+Because the watershed segmentation algorithm is designed for more complex (3D), we will also show the output for a given sample colored image, a lily pad landscape, in addition to the MRI image. The end results of the segmentation algorithm are shown below.
 
 \begin{figure}[!h]
 	\centering
-		\includegraphics{original.jpg}
+		\includegraphics[width=0.75\textwidth]{MRIresult.jpg}
 	\caption{Colored Watershed Segmentation of Processed MRI image.  Notice that the tumor region is successfully identified as a unique area.  however, due to the 2D subject of an MRI image, the algorithm overcomplicates the foreground and identifies various other regions as false positives as well (see Discussion)}
 \end{figure}
 
+The following is the watershed segmentation of the lilypad image.
+
 \begin{figure}[!h]
 	\centering
-		\includegraphics[width=0.9\textwidth]{lilypad.jpg}
+		\includegraphics[width=0.75\textwidth]{result.jpg}
 	\caption{Colored Watershed Segmentation of Processed Lilypad Landscape.  With this 3D example, one can see that the image algorithm successfully reduces the 3D subject of the image to unique regions and represents them with different colors}
 \end{figure}
 
 For results of each individual step, please refer to Appendix A.
 
 \subsection{Symmetry Analysis}
+The following image is the output of our reflections. It is clear that there is an area overlap for the nontumor regions and no area overlap for the tumor.
+
+\begin{figure}[!h]
+	\centering
+		\includegraphics[width=0.6\textwidth]{reflection.jpg}
+	\caption{Result after reflection, single slice.}
+\end{figure}
+
 
 \subsection{Expansion to Full Image Set}
+Our algorithm as described above pointed out frames 79, 80, and 81 as frames with tumor candidates. These frames are included below:
+\begin{figure}[!h]
+	\centering
+		\includegraphics[width=0.3\textwidth]{79.jpg}
+	\caption{Frame 79}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+		\includegraphics[width=0.3\textwidth]{80.jpg}
+	\caption{Frame 80}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+		\includegraphics[width=0.3\textwidth]{81.jpg}
+	\caption{Frame 81}
+\end{figure}
+
+As can be seen, the tumor is indeed on these frames!
 
 \section{Discussion}
 
@@ -156,48 +186,93 @@ Because the algorithms are independent in their approaches, successive applicati
 
 Our project has demonstrated two possible independent directions to the automation of MRI reading, a watershed segmentation approach and a symmetry-based approach. We were able to successfully detect the tumor in our training data (one slice) as well as our test data (entire stack), using the symmetry approach. In the future, we hope to integrate our two approaches, as well as apply our algorithms to more data sets (i.e., more patients). Because our code is extremely modular and has limited ``magic numbers'', we do not anticipate any complications when expanding to a new data set. We would also like to further cross-check and validate our results using the outputs of both of the algorithms in order to decrease false positive rates. In addition, we would like to explore better dimensionality reduction algorithms to better represent the features in our data.
 
-We hope that our work provides an interesting and unique approach towards image analysis of brain scans through MRI. We invite you to view all of our code, which is well commented to a depth we were not able to get to in this short note, at the following URL: \url{https://github.com/bksim/images}.
+We hope that our work provides an interesting and unique approach towards image analysis of brain scans through MRI. We invite you to view all of our code, input data, output data, and images at our Github repository at the following URL: \url{https://github.com/bksim/images}.
 
 \section{References}
 \begin{enumerate}
 \item \textsc{MATLAB} - image processing toolbox
 \item http://www.mathworks.com/products/image/examples.html?file=/products/demos/shipping/images/ipexwatershed.html\#2
-\item SOURCE A http://www.medicinenet.com/mri\_scan/article.htm
-\item SOURCE B http://www.magnetic-resonance.org/MagRes\%20Chapters/21\_03.htm
-\item SOURCE C http://12000.org/my\_courses/UCI\_COURSES/CREDIT\_COURSES/fall\_2004/EECS\_207A\_UCI\_FALL\_2004\/my\_notes\/nabbasi\_EECS\_207A\_notes.pdf
+\item http://www.medicinenet.com/mri\_scan/article.htm
+\item http://www.magnetic-resonance.org/MagRes\%20Chapters/21\_03.htm
+\item http://12000.org/my\_courses/UCI\_COURSES/CREDIT\_COURSES/fall\_2004/EECS\_207A\_UCI\_FALL\_2004\/my\_notes\/nabbasi\_EECS\_207A\_notes.pdf
 \item http://www.csse.uwa.edu.au/~pk/research/matlabfns/
-
+\item Salman SD, Bahrani AA. Segmentation of tumor tissue in gray medical images using watershed transformation method.
+\item Roy S, Bandyopadhyay SK. Detection and Quantification of Brain Tumor from MRI of Brain and its Symmetric Analysis.
 \end{enumerate}
 	
 \section{Appendix A: Watershed Segmentation Images}
-
 \begin{figure}[!h]
-	\centering
-		\mbox{\subfigure{\includegraphics[width=0.45\textwidth]{original.jpg}}\quad
-		\subfigure{\includegraphics[width=0.45\textwidth]{lilypad.jpg}}}
-		\caption{Recall the original MRI image as well as a 3D-subject lilypad landscape for comparison}
+\centering
+\mbox{\subfigure{\includegraphics[width=0.45\textwidth]{original.jpg}}\quad
+\subfigure{\includegraphics[width=0.45\textwidth]{lilypad.jpg}}}
+\caption{Recall the original MRI image as well as a 3D-subject lilypad landscape for comparison}
 \end{figure}
-
 \begin{figure}[!h]
-	\centering
-		\mbox{\subfigure{\includegraphics[width=0.45\textwidth]{original.jpg}}\quad
-		\subfigure{\includegraphics[width=0.45\textwidth]{lilypad.jpg}}}
-		\caption{A logical first stepwould be to calculate gradients directly from the grayscale}
+\centering
+\mbox{\subfigure{\includegraphics[width=0.45\textwidth]{MRIGradientMag.jpg}}\quad
+\subfigure{\includegraphics[width=0.45\textwidth]{GradientMag.jpg}}}
+\caption{A logical first stepwould be to calculate gradients directly from the grayscale}
 \end{figure}
-
 \begin{figure}[!h]
-	\centering
-		\mbox{\subfigure{\includegraphics[width=0.45\textwidth]{original.jpg}}\quad
-		\subfigure{\includegraphics[width=0.45\textwidth]{lilypad.jpg}}}
-		\caption{Apply the watershed transform to the gradient results in oversgementation where there is too much foreground detail}
+\centering
+\mbox{\subfigure{\includegraphics[width=0.45\textwidth]{MRIOversegWatershed.jpg}}\quad
+\subfigure{\includegraphics[width=0.45\textwidth]{OversegWatershed.jpg}}}
+\caption{Apply the watershed transform to the gradient results in oversgementation where there is too much foreground detail}
 \end{figure}
-
+\begin{figure}[!h]
+\centering
+\mbox{\subfigure{\includegraphics[width=0.45\textwidth]{MRICloseReconstructDisk4.jpg}}\quad
+\subfigure{\includegraphics[width=0.45\textwidth]{CloseReconstructDisk6.jpg}}}
+\caption{Apply image erosion and dilation functions to remove foreground detail. Notice the disappearnce of texture and blemishes best seen from the lilypads}
+\end{figure}
+\begin{figure}[!h]
+\centering
+\mbox{\subfigure{\includegraphics[width=0.45\textwidth]{MRIMaxima.jpg}}\quad
+\subfigure{\includegraphics[width=0.45\textwidth]{Maxima.jpg}}}
+\caption{Calculate maxima which marks the foreground area}
+\end{figure}
+\begin{figure}[!h]
+\centering
+\mbox{\subfigure{\includegraphics[width=0.45\textwidth]{MRIMaximaSuperSmooth.jpg}}\quad
+\subfigure{\includegraphics[width=0.45\textwidth]{MaximaSuperSmooth.jpg}}}
+\caption{Superimpose maxima with original image and run erosion and dilation function pair to smooth out edges}
+\end{figure}
+\begin{figure}[!h]
+\centering
+\mbox{\subfigure{\includegraphics[width=0.45\textwidth]{MRIBackgroundThreshold.jpg}}\quad
+\subfigure{\includegraphics[width=0.45\textwidth]{BackgroundThreshold.jpg}}}
+\caption{Detect background with simple thresholding}
+\end{figure}
+\begin{figure}[!h]
+\centering
+\mbox{\subfigure{\includegraphics[width=0.45\textwidth]{MRIWatershedRidgeLines.jpg}}\quad
+\subfigure{\includegraphics[width=0.45\textwidth]{WatershedRidgeLines.jpg}}}
+\caption{Mark watershed ridgelines, the background}
+\end{figure}
+\begin{figure}[!h]
+\centering
+\mbox{\subfigure{\includegraphics[width=0.45\textwidth]{MRIAllMarkersSuper.jpg}}\quad
+\subfigure{\includegraphics[width=0.45\textwidth]{AllMarkersSuper.jpg}}}
+\caption{Superimpose all foreground and background markers}
+\end{figure}
+\begin{figure}[!h]
+\centering
+\mbox{\subfigure{\includegraphics[width=0.45\textwidth]{MRIColorWatershed.jpg}}\quad
+\subfigure{\includegraphics[width=0.45\textwidth]{ColorWatershed.jpg}}}
+\caption{Get watershed transform. This result is no longer oversegmented}
+\end{figure}
+\begin{figure}[!h]
+\centering
+\mbox{\subfigure{\includegraphics[width=0.45\textwidth]{MRIresult.jpg}}\quad
+\subfigure{\includegraphics[width=0.45\textwidth]{result.jpg}}}
+\caption{Superimpose colored watershed result with 50\% transparency over original image}
+\end{figure}
 \section{Appendix B: Symmetry Analysis Images}
-
+Please see github.
 \section{Appendix C: \textsc{MATLAB} code}
 \subsection{Watershed Segmentation Code}
 Treats the input image across various filters to display the final watershed segmented color overlay.
-\subsubsection{filename.m}
+\subsubsection{watershedMethod.m}
 \begin{verbatim}
 %generalized watershed method starting with colored image
 
@@ -327,23 +402,21 @@ print (3, '-djpeg', 'result')
 \end{verbatim}
 
 \subsection{Symmetry Analysis Code}
-Description of what file does.
 \subsubsection{filename.m}
 \begin{verbatim}
-code here
+Please see Github.
 \end{verbatim}
 
 \subsection{Anomaly Detection Code}
-Description of what file does.
 \subsubsection{filename.m}
 \begin{verbatim}
-code here
+Please see Github.
 \end{verbatim}
 
 \subsection{Miscellaneous Code}
 Converts stack of MRI images stored as a GIF into a sequence of JPEG files
 \subsubsection{python.py}
 \begin{verbatim}
-code here
+Please see Github.
 \end{verbatim}
 \end{document}

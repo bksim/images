@@ -24,22 +24,35 @@
 \@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Original 2D Tumor Image}}{6}{figure.1}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Watershed Segmentation}{6}{subsection.4.1}}
 \@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Colored Watershed Segmentation of Processed MRI image. Notice that the tumor region is successfully identified as a unique area. however, due to the 2D subject of an MRI image, the algorithm overcomplicates the foreground and identifies various other regions as false positives as well (see Discussion)}}{7}{figure.2}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Symmetry Analysis}{7}{subsection.4.2}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Expansion to Full Image Set}{7}{subsection.4.3}}
-\@writefile{toc}{\contentsline {section}{\numberline {5}Discussion}{7}{section.5}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Colored Watershed Segmentation of Processed Lilypad Landscape. With this 3D example, one can see that the image algorithm successfully reduces the 3D subject of the image to unique regions and represents them with different colors}}{8}{figure.3}}
-\@writefile{toc}{\contentsline {section}{\numberline {6}Conclusion and Further Work}{9}{section.6}}
-\@writefile{toc}{\contentsline {section}{\numberline {7}References}{9}{section.7}}
-\@writefile{toc}{\contentsline {section}{\numberline {8}Appendix A: Watershed Segmentation Images}{9}{section.8}}
-\@writefile{toc}{\contentsline {section}{\numberline {9}Appendix B: Symmetry Analysis Images}{9}{section.9}}
-\@writefile{toc}{\contentsline {section}{\numberline {10}Appendix C: \textsc  {MATLAB} code}{9}{section.10}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {10.1}Watershed Segmentation Code}{9}{subsection.10.1}}
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {Recall the original image MRI image}}}{10}{subfigure.4.2}}
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {the original lilypad image}}}{10}{subfigure.4.2}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {10.1.1}filename.m}{10}{subsubsection.10.1.1}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {10.2}Symmetry Analysis Code}{13}{subsection.10.2}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {10.2.1}filename.m}{13}{subsubsection.10.2.1}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {10.3}Anomaly Detection Code}{13}{subsection.10.3}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {10.3.1}filename.m}{13}{subsubsection.10.3.1}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {10.4}Miscellaneous Code}{13}{subsection.10.4}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {10.4.1}python.py}{13}{subsubsection.10.4.1}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Colored Watershed Segmentation of Processed Lilypad Landscape. With this 3D example, one can see that the image algorithm successfully reduces the 3D subject of the image to unique regions and represents them with different colors}}{7}{figure.3}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Symmetry Analysis}{8}{subsection.4.2}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Result after reflection, single slice.}}{8}{figure.4}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Expansion to Full Image Set}{8}{subsection.4.3}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Frame 79}}{8}{figure.5}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Frame 80}}{9}{figure.6}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Frame 81}}{9}{figure.7}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Discussion}{9}{section.5}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Conclusion and Further Work}{10}{section.6}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}References}{10}{section.7}}
+\@writefile{toc}{\contentsline {section}{\numberline {8}Appendix A: Watershed Segmentation Images}{11}{section.8}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Recall the original MRI image as well as a 3D-subject lilypad landscape for comparison}}{11}{figure.8}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces A logical first stepwould be to calculate gradients directly from the grayscale}}{11}{figure.9}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Apply the watershed transform to the gradient results in oversgementation where there is too much foreground detail}}{12}{figure.10}}
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Apply image erosion and dilation functions to remove foreground detail. Notice the disappearnce of texture and blemishes best seen from the lilypads}}{12}{figure.11}}
+\@writefile{toc}{\contentsline {section}{\numberline {9}Appendix B: Symmetry Analysis Images}{12}{section.9}}
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces Calculate maxima which marks the foreground area}}{13}{figure.12}}
+\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces Superimpose maxima with original image and run erosion and dilation function pair to smooth out edges}}{13}{figure.13}}
+\@writefile{lof}{\contentsline {figure}{\numberline {14}{\ignorespaces Detect background with simple thresholding}}{14}{figure.14}}
+\@writefile{lof}{\contentsline {figure}{\numberline {15}{\ignorespaces Mark watershed ridgelines, the background}}{14}{figure.15}}
+\@writefile{toc}{\contentsline {section}{\numberline {10}Appendix C: \textsc  {MATLAB} code}{14}{section.10}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.1}Watershed Segmentation Code}{14}{subsection.10.1}}
+\@writefile{lof}{\contentsline {figure}{\numberline {16}{\ignorespaces Superimpose all foreground and background markers}}{15}{figure.16}}
+\@writefile{lof}{\contentsline {figure}{\numberline {17}{\ignorespaces Get watershed transform. This result is no longer oversegmented}}{15}{figure.17}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {10.1.1}watershedMethod.m}{15}{subsubsection.10.1.1}}
+\@writefile{lof}{\contentsline {figure}{\numberline {18}{\ignorespaces Superimpose colored watershed result with 50\% transparency over original image}}{16}{figure.18}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.2}Symmetry Analysis Code}{19}{subsection.10.2}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {10.2.1}filename.m}{19}{subsubsection.10.2.1}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.3}Anomaly Detection Code}{19}{subsection.10.3}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {10.3.1}filename.m}{19}{subsubsection.10.3.1}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.4}Miscellaneous Code}{19}{subsection.10.4}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {10.4.1}python.py}{19}{subsubsection.10.4.1}}
