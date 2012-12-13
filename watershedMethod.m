@@ -1,6 +1,6 @@
 %generalized watershed method starting with colored image
 
-%read image
+%read image - using lilypad.jpg, a colored, 3D landscape of lilypads
 I = imread('lilypad.jpg');
 
 %convert RGB into grayscale
