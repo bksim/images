@@ -75,13 +75,13 @@ We were given a complete data set of a MRI brain scan for one patient with a rel
 
 \subsection{Watershed Segmentation}
 
-The goal of the watershed segmentation method is to map the image to a topological equivalent, and ``flood out"� various ``basins''to represent different levels of foreground.  The first step would be to convert to grayscale.  The intensity of the grayscale code would be mapped to relative height.  Conceptually, once this grayscale mapping is complete, the “whitest” pixels would represent areas of maximum height (or intensity or density in the case of an MRI image).  Using a gradient magnitude should result in proper segmentation.  However, due to small differences in gradient, this results in an overly segmented product (see results section below).
+The goal of the watershed segmentation method is to map the image to a topological equivalent, and ``flood out"� various ``basins''to represent different levels of foreground.  The first step would be to convert to grayscale.  The intensity of the grayscale code would be mapped to relative height.  Conceptually, once this grayscale mapping is complete, the “whitest” pixels would represent areas of maximum height (or intensity or density in the case of an MRI image).  Using a gradient magnitude should result in proper segmentation.  However, due to small differences in gradient, this results in an overly segmented product (see results section below).
 
 To eliminate such detail, a set of image erosion and dilations must be conducted to eliminate some foreground detail.  The foreground is selected through a morphological structuring element provided by the \verb|strel()| function of \textsc{Matlab}'s image processing toolkit.  We chose to use ``disk'' shaped elements as the round object best represents the structures we would find in the brain.  We then calibrated the size of this element and this is where we controlled the level of segmentation.  This element is used by the image manipulation functions below.
 
 After this element is created, we used other Matlab image processing functions (namely \verb|imerode()| and \verb|imdilate()|) to help remove foreground detail and provide a map of topological height “most prominent foreground areas. \verb|Imerode()| and \verb|imdilate()| are complimentary functions that look at every subset of the disk shaped element within the full image matrix to find areas with very similarly colored pixels - combining them into a gradual gradient.  In other words, it dilates the detail of the foreground to produce more uniform areas that won't over-segment when running a watershed algorithm. 
 
-After the establishment of the foreground markers, the markers were superimposed over the original image.  Another sequence of erosion-dilation was applied to help smooth out the foreground markers superimposed onto the original image.  Then, a grayscale thresholding function was run to select the background areas.  Anything darker than a certain threshold would be marked as ``background''�. Then, the \verb|watershed()| function was called to create ridges (the valleys of the basin area - also our background).  This background marker image was then superimposed onto the image with the foreground marker to create the fully marked image.  In our MRI case, because the background is uniformly black, this step was not necessary but was kept in our program for comprehensiveness (will still work on any image).
+After the establishment of the foreground markers, the markers were superimposed over the original image.  Another sequence of erosion-dilation was applied to help smooth out the foreground markers superimposed onto the original image.  Then, a grayscale thresholding function was run to select the background areas.  Anything darker than a certain threshold would be marked as ``background''�. Then, the \verb|watershed()| function was called to create ridges (the valleys of the basin area - also our background).  This background marker image was then superimposed onto the image with the foreground marker to create the fully marked image.  In our MRI case, because the background is uniformly black, this step was not necessary but was kept in our program for comprehensiveness (will still work on any image).
 
 Finally, we visualized the result by using a colored watershed visualization which filled each object with a different color.  This color map was then superimposed with a 50\% transparency over our original image.  Then, each color would be a different component to identify as a possible tumor candidate.
 	
@@ -173,8 +173,23 @@ We hope that our work provides an interesting and unique approach towards image 
 
 \begin{figure}[!h]
 	\centering
-		\mbox{\subfigure[Recall the original image MRI image]{\includegraphics[width=0.45\textwidth]{original.jpg}}\quad
-		\subfigure[the original lilypad image]{\includegraphics[width=0.45\textwidth]{lilypad.jpg}}}
+		\mbox{\subfigure{\includegraphics[width=0.45\textwidth]{original.jpg}}\quad
+		\subfigure{\includegraphics[width=0.45\textwidth]{lilypad.jpg}}}
+		\caption{Recall the original MRI image as well as a 3D-subject lilypad landscape for comparison}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+		\mbox{\subfigure{\includegraphics[width=0.45\textwidth]{original.jpg}}\quad
+		\subfigure{\includegraphics[width=0.45\textwidth]{lilypad.jpg}}}
+		\caption{A logical first stepwould be to calculate gradients directly from the grayscale}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+		\mbox{\subfigure{\includegraphics[width=0.45\textwidth]{original.jpg}}\quad
+		\subfigure{\includegraphics[width=0.45\textwidth]{lilypad.jpg}}}
+		\caption{Apply the watershed transform to the gradient results in oversgementation where there is too much foreground detail}
 \end{figure}
 
 \section{Appendix B: Symmetry Analysis Images}
@@ -241,18 +256,21 @@ Iobrd = imdilate(Iobr, se);
 Iobrcbr = imreconstruct(imcomplement(Iobrd), imcomplement(Iobr));
 Iobrcbr = imcomplement(Iobrcbr);
 imwrite(Iobrcbr, 'CloseReconstruct_Disk6.jpg', 'jpg');
-%figure, imshow(Iobrcbr), title('Opening-closing by reconstruction (Iobrcbr)')
+%figure, imshow(Iobrcbr), title('Opening-closing by reconstruction
+%(Iobrcbr)')
 
 %use function to store maxima (foreground marker)
 fgm = imregionalmax(Iobrcbr);
 imwrite(fgm, 'Maxima.jpg', 'jpg');
-%figure, imshow(fgm), title('Regional maxima of opening-closing by reconstruction (fgm)')
+%figure, imshow(fgm), title('Regional maxima of opening-closing by
+%reconstruction (fgm)')
 
 %copy image and superimpose to form new working image
 I2 = I;
 I2(fgm) = 255;
 imwrite(I2, 'MaximaSuperimposed.jpg', 'jpg');
-%figure, imshow(I2), title('Regional maxima superimposed on original image (I2)')
+%figure, imshow(I2), title('Regional maxima superimposed on original image
+%(I2)')
 
 %create a new morphological element to smooth out the foreground markers
 se2 = strel(ones(3,3));
@@ -264,13 +282,15 @@ fgm4 = bwareaopen(fgm3, 15);
 I3 = I;
 I3(fgm4) = 255;
 imwrite(I3, 'MaxmimaSuperSmooth.jpg', 'jpg');
-%figure, imshow(I3), title('Modified regional maxima superimposed on original image (fgm4)')
+%figure, imshow(I3), title('Modified regional maxima superimposed on
+%original image (fgm4)')
 
 %identify background pixels - anything below a certain threshold is
 %"background"
 bw = im2bw(Iobrcbr, graythresh(Iobrcbr));
 imwrite(bw, 'Background_Threshold.jpg', 'jpg');
-%figure, imshow(bw), title('Thresholded opening-closing by reconstruction (bw)')
+%figure, imshow(bw), title('Thresholded opening-closing by reconstruction
+%(bw)')
 
 %adapt background to form watershed ridge lines (where there is little
 %foreground, mark off)
@@ -286,7 +306,8 @@ L = watershed(gradmag2);
 I4 = I;
 I4(imdilate(L == 0, ones(3, 3)) | bgm | fgm4) = 255;
 imwrite(I4, 'All_Markers_Super.jpg', 'jpg');
-%figure, imshow(I4), title('Markers and object boundaries superimposed on original image (I4)')
+%figure, imshow(I4), title('Markers and object boundaries superimposed on
+%original image (I4)')
 
 %color image visualization
 Lrgb = label2rgb(L, 'jet', 'w', 'shuffle');
