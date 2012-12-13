@@ -97,20 +97,16 @@ The second approach we used was a more unique one designed to take advantage of 
 \item Finally, as an additional checking measure, we generate ellipses with the same normalized second central moment as each of the Canny-filtered closed regions and find their centroids. This step will be the basis of the second part of our symmetry analysis and will be discussed more in detail later.
 \end{enumerate}
 
-
-Mention smoothing, thresholds
-
-DID YOU WANT TO TALK ABOUT RANKING THE AREAS?
-
-The dude’s edge list library – CITE BELOW
-
 \subsection{Expansion to Full Image Set}
 
-Region functions like the ellipse things
+Because both the watershed segmentation approach and the approach described above required us to input the exact 2D frame where the tumor was located, these approaches are not easily generalizable; indeed, it requires a human to manually find the slice which has the tumor on it to feed as input into the algorithms. To remedy this problem, we modified our symmetry algorithm to take a series of images (for example, as frames of a GIF file, or as a series of image files) and output possible regions in frames that the algorithm has detected as possible tumor candidates. Below, we describe the modified algorithm:
 
-CENTROID,
-
-TALK ABOUT THE MULTIPLE SLICES HERE
+\begin{enumerate}
+\item For each image in the series of images, we use the ellipse-fitting methods described above in order to find the centroids of all enclosed regions in the image after applying the Canny edge detection operator.
+\item We reflect each of these centroids, pairwise, across the calculated axis of symmetry, and assign each pair of centroids a score based on the Euclidean distance, in pixels, between them.
+\item For each centroid, we take its lowest distance out of all its pairwise interactions with the other centroids; we then find the centroid with the highest of these lowest distances and mark that as the best candidate in each frame. This is because we want the centroid whose lowest distance away from any of the other centroids (or reflected centroids) is the highest, as this is an indicator of a higher probability of being a tumor (or at least, a non-structural object).
+\item For each set of adjacent frames in the series of images, we calculate the Euclidean distance between the best candidates of those frames, and output all frames that contain best candidates whose distances in adjacent frames is less than $1$ pixel, some arbitrary threshold which can be set by the user (the higher the threshold, the more sensitive and the more false positives).
+\end{enumerate}
 
 \section{Results}
 
@@ -118,26 +114,18 @@ For both cases, we started with the 2D MRI snapshot below that we selected from 
 
 \begin{figure}[!h]
 	\centering
-		\includegraphics{original.jpg}
+		\includegraphics[width=.3\textwidth]{original.jpg}
 	\caption{Original 2D Tumor Image}
 \end{figure}
 
 \subsection{Watershed Segmentation}
 
-Because the watershed segmentation algorithm is designed for more complex (3D), we will also show the output for a given colored image, this lily pad landscape in addition to the MRI image.
-
-\begin{figure}[!h]
-	\centering
-		\includegraphics[width=0.9\textwidth]{lilypad.jpg}
-	\caption{Original Lilypad Landscape}
-\end{figure}
-
-The end output, the colored watershed visualization after image processing superimposed onto the original image is shown below.
+Because the watershed segmentation algorithm is designed for more complex (3D), we will also show the output for a given sample colored image, a lily pad landscape, in addition to the MRI image. The end output, the colored watershed visualization after image processing superimposed onto the original image is shown below.
 
 \begin{figure}[!h]
 	\centering
 		\includegraphics{original.jpg}
-	\caption{Colored Watershed Segmentation of Processed MRi image.  Notice that the tumor region is successfully identified as a unique area.  however, due to the 2D subject of an MRI image, the algorithm overcomplicates the foreground and identifies various other regions as false positives as well (see Discussion)}
+	\caption{Colored Watershed Segmentation of Processed MRI image.  Notice that the tumor region is successfully identified as a unique area.  however, due to the 2D subject of an MRI image, the algorithm overcomplicates the foreground and identifies various other regions as false positives as well (see Discussion)}
 \end{figure}
 
 \begin{figure}[!h]
@@ -158,19 +146,18 @@ The results from the image processing methods show much cleaner results for the 
 
 The symmetry analysis, as a much more simple algorithm, gave us remarkably better results.  We recognize, however, that this algorithm is limited by the symetry.  Therefore, we cannot extend this algorithm to process other parts of the body that are assymetrical, unlike that of the image processing algorithm.
 
-We are also aware that individually, both algorithms need to be semi-calibrated to give us the best output.  When run using auto-thresholding, the watershed segmentation method has a tendency to provide false positives due to the fact that the tumor is not the absolute brightest structure recorded by the MRI.  It would be difficult to “teach” our algorithm to ignore such areas – because sometimes, the tumor could in fact be the brightest area.  However, this problem can be reduced by running the algorithm at various thresholds for the morphological structure element used to simplify the image.  Regardless, providing false positives is more acceptable than a false negative – as a doctor would be able to quickly filter through the highlighted possibilities for tumor candidates.
+We are also aware that individually, both algorithms need to be semi-calibrated to give us the best output.  When run using auto-thresholding, the watershed segmentation method has a tendency to provide false positives due to the fact that the tumor is not the absolute brightest structure recorded by the MRI.  It would be difficult to “teach” our algorithm to ignore such areas – because sometimes, the tumor could in fact be the brightest area.  However, this problem can be reduced by running the algorithm at various thresholds for the morphological structure element used to simplify the image.  Regardless, providing false positives is more acceptable than a false negative, as a doctor would be able to quickly filter through the highlighted possibilities for tumor candidates.
 
-The edge detection algorithm requires a similar calibration step - setting the hystersis threshold for the Gaussian filter .  The same process to test various thresholds for repeated results would help reduce these errors.  Because of the simplicity of this design, this algorithm seems to be favored with our current results.  One weakness of the symmetry based edge detection is that there may be false negatives (if the tumor is bordering another edge), an error that is less desirable in medical applications.
+The edge detection algorithm requires a similar calibration step - setting the hystersis threshold for the Gaussian filter.  The same process to test various thresholds for repeated results would help reduce these errors.  Because of the simplicity of this design, this algorithm seems to be favored with our current results.  One weakness of the symmetry based edge detection is that there may be false negatives (if the tumor is bordering another edge), an error that is less desirable in medical applications.
 
 Because the algorithms are independent in their approaches, successive application of the two would only improve our confidence.  Through such cross-checking, the agreed parts would have the highest probability of being the area of interest.  Combining both methods would increase our detection rate while minimizing false positives.
 
 \section{Conclusion and Further Work}
 
-Our project has demonstrated two possible independent directions to the automation of MRI reading.  The beauty of the symmetry analysis is that it works well for the naturally symmetric brain.  The simpler algorithm gives us much cleaner results that we refined output tumor candidates given the entire stack of MRI images.  Perhaps we could run some similar approach on the watershed segmentation algorithm to help refine its results.  We would also like to aquire more data so as to demonstrate the robustness of our algorithm.  Beacuse our code is extremely modular and has limited magic numbers, we do not anticpate any complications when expanding to a new data set.
+Our project has demonstrated two possible independent directions to the automation of MRI reading, a watershed segmentation approach and a symmetry-based approach. We were able to successfully detect the tumor in our training data (one slice) as well as our test data (entire stack), using the symmetry approach. In the future, we hope to integrate our two approaches, as well as apply our algorithms to more data sets (i.e., more patients). Because our code is extremely modular and has limited ``magic numbers'', we do not anticipate any complications when expanding to a new data set. We would also like to further cross-check and validate our results using the outputs of both of the algorithms in order to decrease false positive rates. In addition, we would like to explore better dimensionality reduction algorithms to better represent the features in our data.
 
-We believe that our two algorithms will work well with each other and when coordinated, will provide the best results.  We would like to coordinate the two algorithms.  This could be done by storing the coordinates of each candidate area.  We could then cross check using the MRI images from a different angle.  These steps would conclue our project in a fully-functional, automated MRI interpreter.  Even if it is unable to conclusively diagnosis a tumor, this program could at least reduce the number of frames that a doctor would have to sift through to identify a possible tumor.  And beyond that, we would also be able to output a “best candidate” confirmed by multiple approaches.
+We hope that our work provides an interesting and unique approach towards image analysis of brain scans through MRI. We invite you to view all of our code, which is well commented to a depth we were not able to get to in this short note, at the following URL: \url{https://github.com/bksim/images}.
 
-We invite you to view all of our code at \url{https://github.com/bksim/images}.
 \section{References}
 \begin{enumerate}
 \item \textsc{MATLAB} - image processing toolbox
@@ -178,6 +165,7 @@ We invite you to view all of our code at \url{https://github.com/bksim/images}.
 \item SOURCE A http://www.medicinenet.com/mri\_scan/article.htm
 \item SOURCE B http://www.magnetic-resonance.org/MagRes\%20Chapters/21\_03.htm
 \item SOURCE C http://12000.org/my\_courses/UCI\_COURSES/CREDIT\_COURSES/fall\_2004/EECS\_207A\_UCI\_FALL\_2004\/my\_notes\/nabbasi\_EECS\_207A\_notes.pdf
+\item http://www.csse.uwa.edu.au/~pk/research/matlabfns/
 
 \end{enumerate}
 	
