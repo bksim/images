@@ -4,17 +4,20 @@
 \BOOKMARK [2][-]{subsection.2.2}{Symmetry Analysis}{section.2}% 4
 \BOOKMARK [2][-]{subsection.2.3}{Expansion to Full Image Set}{section.2}% 5
 \BOOKMARK [1][-]{section.3}{Results}{}% 6
-\BOOKMARK [1][-]{section.4}{Discussion and Future Work}{}% 7
-\BOOKMARK [1][-]{section.5}{Conclusion}{}% 8
-\BOOKMARK [1][-]{section.6}{References}{}% 9
-\BOOKMARK [1][-]{section.7}{Appendix A: Watershed Segmentation Images}{}% 10
-\BOOKMARK [1][-]{section.8}{Appendix B: Symmetry Analysis Images}{}% 11
-\BOOKMARK [1][-]{section.9}{Appendix C: MATLAB code}{}% 12
-\BOOKMARK [2][-]{subsection.9.1}{Watershed Segmentation Code}{section.9}% 13
-\BOOKMARK [3][-]{subsubsection.9.1.1}{filename.m}{subsection.9.1}% 14
-\BOOKMARK [2][-]{subsection.9.2}{Symmetry Analysis Code}{section.9}% 15
-\BOOKMARK [3][-]{subsubsection.9.2.1}{filename.m}{subsection.9.2}% 16
-\BOOKMARK [2][-]{subsection.9.3}{Anomaly Detection Code}{section.9}% 17
-\BOOKMARK [3][-]{subsubsection.9.3.1}{filename.m}{subsection.9.3}% 18
-\BOOKMARK [2][-]{subsection.9.4}{Miscellaneous Code}{section.9}% 19
-\BOOKMARK [3][-]{subsubsection.9.4.1}{python.py}{subsection.9.4}% 20
+\BOOKMARK [2][-]{subsection.3.1}{Watershed Segmentation}{section.3}% 7
+\BOOKMARK [2][-]{subsection.3.2}{Symmetry Analysis}{section.3}% 8
+\BOOKMARK [2][-]{subsection.3.3}{Expansion to Full Image Set}{section.3}% 9
+\BOOKMARK [1][-]{section.4}{Discussion}{}% 10
+\BOOKMARK [1][-]{section.5}{Conclusion and Further Work}{}% 11
+\BOOKMARK [1][-]{section.6}{References}{}% 12
+\BOOKMARK [1][-]{section.7}{Appendix A: Watershed Segmentation Images}{}% 13
+\BOOKMARK [1][-]{section.8}{Appendix B: Symmetry Analysis Images}{}% 14
+\BOOKMARK [1][-]{section.9}{Appendix C: MATLAB code}{}% 15
+\BOOKMARK [2][-]{subsection.9.1}{Watershed Segmentation Code}{section.9}% 16
+\BOOKMARK [3][-]{subsubsection.9.1.1}{filename.m}{subsection.9.1}% 17
+\BOOKMARK [2][-]{subsection.9.2}{Symmetry Analysis Code}{section.9}% 18
+\BOOKMARK [3][-]{subsubsection.9.2.1}{filename.m}{subsection.9.2}% 19
+\BOOKMARK [2][-]{subsection.9.3}{Anomaly Detection Code}{section.9}% 20
+\BOOKMARK [3][-]{subsubsection.9.3.1}{filename.m}{subsection.9.3}% 21
+\BOOKMARK [2][-]{subsection.9.4}{Miscellaneous Code}{section.9}% 22
+\BOOKMARK [3][-]{subsubsection.9.4.1}{python.py}{subsection.9.4}% 23

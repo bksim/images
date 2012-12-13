@@ -62,7 +62,7 @@
 
 \section{Introduction and Motivation}
 
-The MRI (Magnetic Resonance Imaging) is one of the most accurate and available types of medical imaging that is used to detect diseases throughout the body, ranging from severe bleeding to cancerous growths (SOURCE A).  The prevalence of MRI scans for diagnosis is well represented by the sheer number of the expensive yet critical equipment.  In the United States, there are over 10,000 MRI machines (SOURCE B).  When a doctor administers an MRI imaging (for the scope of this paper, we will be using the brain as the organ of study), the machine stores many 2D slices of the brain from multiple angles to provide the most accurate 3D image.  From this collection of slices, the doctor must look through each frame for possible irregularities that could confirm the existence of a tumor.  The person reading the MRI image must flip through each frame systematically – there is no shortcut to knowing about where a tumor could be.  Often times, the doctor must look at the same images multiple times even if her oe she does not see a tumor just to make sure a small tumor (which could be as large as just spanning 3 frames) was not missed.  The requirement of such a methodical but tedious search inspired us to develop approaches to automate the reading of a set of MRI images.  For the scope of this project, we explored a couple independent techniques to identify possible tumor candidates from a given 2D image (one slice of the brain).  We then extended this search to an entire stack of images represetig the full 3D brain.  Although we recognize that our algorithm will probably not fully replace a doctor's screening of MRIs, for liability and lawsuit reasons, we do hope that it will both reduce the subset a doctor has to look through, as well as be able to point out likely tumor candidates that the doctor could have missed.
+Magnetic resonance imaging, or MRI, is one of the most accurate and available types of medical imaging that is used to detect diseases throughout the body, ranging from severe bleeding to cancerous growths (SOURCE A).  The prevalence of MRI scans for diagnosis in the medical field is well represented by the sheer number of expensive yet critical MRI equipment - there are over 10,000 MRI machines in just the United States alone (SOURCE B).  When a doctor administers an MRI scan. the machine stores many 2D slices of the brain. These scans are also taken from various axials. From this collection of slices, the doctor must look through each frame for possible irregularities that could confirm the existence of a tumor.  The person reading the MRI image must flip through each of the hundreds of frames systematically - there is no shortcut to knowing about where a tumor could be.  Often times, the doctor must look at the same images multiple times even if her or she does not see a tumor just to make sure a small tumor (which could be as large as just spanning 3 frames and only tens of pixels) was not missed.  The requirement of such a methodical but tedious search inspired us to develop approaches to automate the reading of a set of MRI images. For the scope of this project, we limited our dataset to MRI images of the brain. We explored traditional image processing techniques as well as developed our own more specialized technique to identify possible tumor candidates from a given 2D image (one slice of the brain). We then extended this search to an entire stack of images representing the full 3D brain. Although we recognize that our algorithm will probably not fully replace a doctor's screening of MRIs, for liability and accuracy concerns, we do hope that it will both serve as a valuable backup ``safety net'' for the doctor, as well as be able to suggest likely tumor candidates that the doctor can focus special attention on.
 
 \section{Methodology}
 
@@ -72,21 +72,31 @@ We tried two independent approaches to ideentifying a positive tumor case out of
 The second method we used was based on a symmetry analysis algorithm.  A tumor should be recognized as a closed object in our image.  We could identify this closed region from an edge detection step.  Then, we wanted to use the natural symmetry of the brain to detect the tumor.  A tumor would be an irregular growth and would not have a symmetric counterpart.
 
 If either method worked, we would save the 3D location (using the frame number).  We woudl then check which tumor candidates came up consistent across several consecutive frames - and these would be identified by our final program output.
+
 \subsection{Watershed Segmentation}
 
-The goal of the watershed segmentation method is to map the image to a topological equivalent, and “flood out” various “basins” to represent different levels of foreground.  The first step would be to convert to grayscale.  The intensity of the grayscale code would be mapped to relative height.  Conceptually, once this grayscale mapping is complete, the “whitest” pixels would represent areas of maximum height (or intensity or density in the case of an MRI image).  Using a gradient magnitude should result in proper segmentation.  However, due to small differences in gradient, this results in an overly segmented product (see results section below).
+The goal of the watershed segmentation method is to map the image to a topological equivalent, and ``flood out"� various ``basins''to represent different levels of foreground.  The first step would be to convert to grayscale.  The intensity of the grayscale code would be mapped to relative height.  Conceptually, once this grayscale mapping is complete, the “whitest” pixels would represent areas of maximum height (or intensity or density in the case of an MRI image).  Using a gradient magnitude should result in proper segmentation.  However, due to small differences in gradient, this results in an overly segmented product (see results section below).
 
-To eliminate such detail, a set of image erosion and dilations must be conducted to eliminate some foreground detail.  The foreground is selected through a morphological structuring element provided by the \begin{verbatim}strel()\end{verbatim} function of Matlab’s image processing toolkit.  We chose to use “disk” shaped elements as the round object best represents the structures we would find in the brain.  We then calibrated the size of this element and this is where we controlled the level of segmentation.  This element is used by the image manipulation functions below.
+To eliminate such detail, a set of image erosion and dilations must be conducted to eliminate some foreground detail.  The foreground is selected through a morphological structuring element provided by the \verb|strel()| function of \textsc{Matlab}'s image processing toolkit.  We chose to use ``disk'' shaped elements as the round object best represents the structures we would find in the brain.  We then calibrated the size of this element and this is where we controlled the level of segmentation.  This element is used by the image manipulation functions below.
 
-After this element is created, we used other Matlab image processing functions (namely \begin{verbatim}imerode()\end{verbatim} and \begin{verbatim}imdilate()\end{verbatim} ) to help remove foreground detail and provide a map of topological height “most prominent foreground areas.”  \begin{verbatim}Imerode()\end{verbatim} and \begin{verbatim}imdilate()\end{verbatim} are complimentary functions that look at every subset of the disk shaped element within the full image matrix to find areas with very similarly colored pixels – combining them into a gradual gradient.  In other words, it dilates the detail of the foreground to produce more uniform areas that won’t over-segment when running a watershed algorithm. 
+After this element is created, we used other Matlab image processing functions (namely \verb|imerode()| and \verb|imdilate()|) to help remove foreground detail and provide a map of topological height “most prominent foreground areas. \verb|Imerode()| and \verb|imdilate()| are complimentary functions that look at every subset of the disk shaped element within the full image matrix to find areas with very similarly colored pixels - combining them into a gradual gradient.  In other words, it dilates the detail of the foreground to produce more uniform areas that won't over-segment when running a watershed algorithm. 
 
-After the establishment of the foreground markers, the markers were superimposed over the original image.  Another sequence of erosion-dilation was applied to help smooth out the foreground markers superimposed onto the original image.  Then, a grayscale thresholding function was run to select the background areas.  Anything darker than a certain threshold would be marked as “background”.  Then, the \begin{verbatim}watershed()\end{verbatim} function was called to create ridges (the valleys of the basin area – also our background).  This background marker image was then superimposed onto the image with the foreground marker to create the fully marked image.  In our MRI case, because the background is uniformly black, this step was not necessary but was kept in our program for comprehensiveness (will still work on any image).
+After the establishment of the foreground markers, the markers were superimposed over the original image.  Another sequence of erosion-dilation was applied to help smooth out the foreground markers superimposed onto the original image.  Then, a grayscale thresholding function was run to select the background areas.  Anything darker than a certain threshold would be marked as ``background''�. Then, the \verb|watershed()| function was called to create ridges (the valleys of the basin area - also our background).  This background marker image was then superimposed onto the image with the foreground marker to create the fully marked image.  In our MRI case, because the background is uniformly black, this step was not necessary but was kept in our program for comprehensiveness (will still work on any image).
 
-Finally, we visualized the result by using a colored watershed visualization which filled each object with a different color.  This color map was then superimposed with a 50% transparency over our original image.  Then, each color would be a different component to identify as a possible tumor candidate.
+Finally, we visualized the result by using a colored watershed visualization which filled each object with a different color.  This color map was then superimposed with a 50\% transparency over our original image.  Then, each color would be a different component to identify as a possible tumor candidate.
 	
 \subsection{Symmetry Analysis}
 
-The first step to edge detection involved picking an edge detection algorithm.  We found various edge detection algorithms including Canny and Sorbel methods.  Canny is generally considered to be the more optimal algorithm.  It uses hystresis tresholding over a fixed threshold and this allows the algorithm to be more robust to noise, provide thinner edge lines and avoid treating 1 thicker edge as 2 separate ones (SOURCE C).  
+The second approach we used was a more unique one designed to take advantage of the highly symmetric nature of the brain. Our hypothesis was that, while many features of the brain are symmetric in the brain, tumors would most likely not be symmetric. This reasoning led us to create the following algorithm:
+
+\begin{enumerate}
+\item We first detect the axis of symmetry of the brain with respect to the image by finding the ellipse that has the same normalized second central moment as the region in question and calculating the orientation of its semimajor axis with respect to the x-axis of the image.
+\item We detect the edges using the Canny edge detection operator, which we choose over other edge detection algorithms such as the Sobel operator because it uses hysteresis thresholding rather than fixed thresholding. Although it does require more computational time to run, it results in an algorithm that is more robust to noise and avoids multiple edge lines.
+\item We detect all closed edges; that is, edges which form a curve that completely enclose some area.
+\item We reflect each closed object detected in the image across the axis of symmetry, and calculate the overlapping number of pixels for each set of objects, pairwise. Those pairs of closed objects with the lowest overlapping area are the areas with highest likelihood of being tumors.
+\item Finally, as an additional checking measure, we generate ellipses with the same normalized second central moment as each of the Canny-filtered closed regions and find their centroids. This step will be the basis of the second part of our symmetry analysis and will be discussed more in detail later.
+\end{enumerate}
+
 
 Mention smoothing, thresholds
 
@@ -163,11 +173,11 @@ We believe that our two algorithms will work well with each other and when coord
 We invite you to view all of our code at \url{https://github.com/bksim/images}.
 \section{References}
 \begin{enumerate}
-\item MATLAB - image processing toolbox
-\item http://www.mathworks.com/products/image/examples.html?file=/products/demos/shipping/images/ipexwatershed.html#2
-\item SOURCE A http://www.medicinenet.com/mri_scan/article.htm
-\item SOURCE B http://www.magnetic-resonance.org/MagRes%20Chapters/21_03.htm
-\item SOURCE C http://12000.org/my_courses/UCI_COURSES/CREDIT_COURSES/fall_2004/EECS_207A_UCI_FALL_2004/my_notes/nabbasi_EECS_207A_notes.pdf
+\item \textsc{MATLAB} - image processing toolbox
+\item http://www.mathworks.com/products/image/examples.html?file=/products/demos/shipping/images/ipexwatershed.html\#2
+\item SOURCE A http://www.medicinenet.com/mri\_scan/article.htm
+\item SOURCE B http://www.magnetic-resonance.org/MagRes\%20Chapters/21\_03.htm
+\item SOURCE C http://12000.org/my\_courses/UCI\_COURSES/CREDIT\_COURSES/fall\_2004/EECS\_207A\_UCI\_FALL\_2004\/my\_notes\/nabbasi\_EECS\_207A\_notes.pdf
 
 \end{enumerate}
 	
@@ -181,7 +191,7 @@ We invite you to view all of our code at \url{https://github.com/bksim/images}.
 
 \section{Appendix B: Symmetry Analysis Images}
 
-\section{Appendix C: MATLAB code}
+\section{Appendix C: \textsc{MATLAB} code}
 \subsection{Watershed Segmentation Code}
 Treats the input image across various filters to display the final watershed segmented color overlay.
 \subsubsection{filename.m}
