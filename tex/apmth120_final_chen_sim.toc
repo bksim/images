@@ -1,23 +1,24 @@
-\contentsline {section}{\numberline {1}Introduction and Motivation}{2}{section.1}
-\contentsline {section}{\numberline {2}Methodology}{2}{section.2}
-\contentsline {subsection}{\numberline {2.1}Watershed Segmentation}{3}{subsection.2.1}
-\contentsline {subsection}{\numberline {2.2}Symmetry Analysis}{4}{subsection.2.2}
-\contentsline {subsection}{\numberline {2.3}Expansion to Full Image Set}{4}{subsection.2.3}
-\contentsline {section}{\numberline {3}Results}{5}{section.3}
-\contentsline {subsection}{\numberline {3.1}Watershed Segmentation}{5}{subsection.3.1}
-\contentsline {subsection}{\numberline {3.2}Symmetry Analysis}{7}{subsection.3.2}
-\contentsline {subsection}{\numberline {3.3}Expansion to Full Image Set}{7}{subsection.3.3}
-\contentsline {section}{\numberline {4}Discussion}{7}{section.4}
-\contentsline {section}{\numberline {5}Conclusion and Further Work}{8}{section.5}
-\contentsline {section}{\numberline {6}References}{9}{section.6}
-\contentsline {section}{\numberline {7}Appendix A: Watershed Segmentation Images}{9}{section.7}
-\contentsline {section}{\numberline {8}Appendix B: Symmetry Analysis Images}{9}{section.8}
-\contentsline {section}{\numberline {9}Appendix C: \textsc {MATLAB} code}{9}{section.9}
-\contentsline {subsection}{\numberline {9.1}Watershed Segmentation Code}{9}{subsection.9.1}
-\contentsline {subsubsection}{\numberline {9.1.1}filename.m}{10}{subsubsection.9.1.1}
-\contentsline {subsection}{\numberline {9.2}Symmetry Analysis Code}{12}{subsection.9.2}
-\contentsline {subsubsection}{\numberline {9.2.1}filename.m}{12}{subsubsection.9.2.1}
-\contentsline {subsection}{\numberline {9.3}Anomaly Detection Code}{13}{subsection.9.3}
-\contentsline {subsubsection}{\numberline {9.3.1}filename.m}{13}{subsubsection.9.3.1}
-\contentsline {subsection}{\numberline {9.4}Miscellaneous Code}{13}{subsection.9.4}
-\contentsline {subsubsection}{\numberline {9.4.1}python.py}{13}{subsubsection.9.4.1}
+\contentsline {section}{\numberline {1}Introduction and Motivation}{3}{section.1}
+\contentsline {section}{\numberline {2}Previous Work}{3}{section.2}
+\contentsline {section}{\numberline {3}Methodology}{3}{section.3}
+\contentsline {subsection}{\numberline {3.1}Watershed Segmentation}{4}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Symmetry Analysis}{5}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Expansion to Full Image Set}{5}{subsection.3.3}
+\contentsline {section}{\numberline {4}Results}{6}{section.4}
+\contentsline {subsection}{\numberline {4.1}Watershed Segmentation}{6}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Symmetry Analysis}{7}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}Expansion to Full Image Set}{7}{subsection.4.3}
+\contentsline {section}{\numberline {5}Discussion}{7}{section.5}
+\contentsline {section}{\numberline {6}Conclusion and Further Work}{9}{section.6}
+\contentsline {section}{\numberline {7}References}{10}{section.7}
+\contentsline {section}{\numberline {8}Appendix A: Watershed Segmentation Images}{10}{section.8}
+\contentsline {section}{\numberline {9}Appendix B: Symmetry Analysis Images}{11}{section.9}
+\contentsline {section}{\numberline {10}Appendix C: \textsc {MATLAB} code}{11}{section.10}
+\contentsline {subsection}{\numberline {10.1}Watershed Segmentation Code}{11}{subsection.10.1}
+\contentsline {subsubsection}{\numberline {10.1.1}filename.m}{11}{subsubsection.10.1.1}
+\contentsline {subsection}{\numberline {10.2}Symmetry Analysis Code}{14}{subsection.10.2}
+\contentsline {subsubsection}{\numberline {10.2.1}filename.m}{14}{subsubsection.10.2.1}
+\contentsline {subsection}{\numberline {10.3}Anomaly Detection Code}{14}{subsection.10.3}
+\contentsline {subsubsection}{\numberline {10.3.1}filename.m}{14}{subsubsection.10.3.1}
+\contentsline {subsection}{\numberline {10.4}Miscellaneous Code}{14}{subsection.10.4}
+\contentsline {subsubsection}{\numberline {10.4.1}python.py}{14}{subsubsection.10.4.1}

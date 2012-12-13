@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2011.9.13)  12 DEC 2012 23:05
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2011.9.13)  12 DEC 2012 23:21
 entering extended mode
 **C:/Users/BKS/Documents/Harvard/Classes/Fall*2012/ApMath*120/project/images/te
 x/apmth120_final_chen_sim.tex
@@ -303,13 +303,17 @@ Package: subfigure 2002/07/30 v2.1.4 subfigure package
 \subfig@top=\skip54
 \subfig@bottom=\skip55
 )
+(C:\Users\BKS\AppData\Roaming\MiKTeX\2.9\tex\latex\setspace\setspace.sty
+Package: setspace 2000/12/01 6.7 Contributed and Supported LaTeX2e package
+
+Package: `setspace' 6.7 <2000/12/01>
+)
 \c@thm=\count117
 \c@defn=\count118
 \c@conj=\count119
 \c@exmp=\count120
 \c@case=\count121
-
-(C:\Users\BKS\AppData\Roaming\MiKTeX\2.9\tex\latex\fancyhdr\fancyhdr.sty
+ (C:\Users\BKS\AppData\Roaming\MiKTeX\2.9\tex\latex\fancyhdr\fancyhdr.sty
 \fancy@headwidth=\skip56
 \f@ncyO@elh=\skip57
 \f@ncyO@erh=\skip58
@@ -322,20 +326,20 @@ Package: subfigure 2002/07/30 v2.1.4 subfigure package
 )
 ("C:\Users\BKS\Documents\Harvard\Classes\Fall 2012\ApMath 120\project\images\te
 x\apmth120_final_chen_sim.aux")
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 54.
-LaTeX Font Info:    ... okay on input line 54.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 54.
-LaTeX Font Info:    ... okay on input line 54.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 54.
-LaTeX Font Info:    ... okay on input line 54.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 54.
-LaTeX Font Info:    ... okay on input line 54.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 54.
-LaTeX Font Info:    ... okay on input line 54.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 54.
-LaTeX Font Info:    ... okay on input line 54.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 54.
-LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -345,15 +349,15 @@ LaTeX Font Info:    ... okay on input line 54.
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
 * modes: 
-* h-part:(L,W,R)=(90.3375pt, 433.62001pt, 90.3375pt)
-* v-part:(T,H,B)=(90.3375pt, 614.295pt, 90.3375pt)
+* h-part:(L,W,R)=(54.2025pt, 505.89pt, 54.2025pt)
+* v-part:(T,H,B)=(72.26999pt, 686.565pt, 36.135pt)
 * \paperwidth=614.295pt
 * \paperheight=794.96999pt
-* \textwidth=433.62001pt
+* \textwidth=505.89pt
 * \textheight=648.0pt
-* \oddsidemargin=18.0675pt
-* \evensidemargin=18.0675pt
-* \topmargin=-18.9325pt
+* \oddsidemargin=-18.06749pt
+* \evensidemargin=-18.06749pt
+* \topmargin=-37.0pt
 * \headheight=12.0pt
 * \headsep=25.0pt
 * \topskip=12.0pt
@@ -386,7 +390,7 @@ LaTeX Font Info:    ... okay on input line 54.
 \everyMPtoPDFconversion=\toks30
 )
 \AtBeginShipoutBox=\box29
-Package hyperref Info: Link coloring OFF on input line 54.
+Package hyperref Info: Link coloring OFF on input line 56.
  ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\nameref.sty"
 Package: nameref 2010/04/30 v2.40 Cross-referencing by name of section
 
@@ -395,21 +399,21 @@ Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 \c@section@level=\count128
 )
-LaTeX Info: Redefining \ref on input line 54.
-LaTeX Info: Redefining \pageref on input line 54.
-LaTeX Info: Redefining \nameref on input line 54.
+LaTeX Info: Redefining \ref on input line 56.
+LaTeX Info: Redefining \pageref on input line 56.
+LaTeX Info: Redefining \nameref on input line 56.
 
 ("C:\Users\BKS\Documents\Harvard\Classes\Fall 2012\ApMath 120\project\images\te
 x\apmth120_final_chen_sim.out")
 ("C:\Users\BKS\Documents\Harvard\Classes\Fall 2012\ApMath 120\project\images\te
 x\apmth120_final_chen_sim.out")
 \@outlinefile=\write3
-LaTeX Font Info:    Try loading font information for U+msa on input line 60.
+LaTeX Font Info:    Try loading font information for U+msa on input line 62.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
 File: umsa.fd 2009/06/22 v3.00 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 60.
+LaTeX Font Info:    Try loading font information for U+msb on input line 62.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2009/06/22 v3.00 AMS symbols B
@@ -418,24 +422,20 @@ File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 x\apmth120_final_chen_sim.toc"
 
 LaTeX Font Warning: Font shape `OT1/cmr/bx/sc' undefined
-(Font)              using `OT1/cmr/bx/n' instead on input line 15.
+(Font)              using `OT1/cmr/bx/n' instead on input line 16.
 
 )
 \tf@toc=\write4
  [1
 
 {C:/Users/BKS/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ì in font cmr12!
-
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 14.49998pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[2]
+[2] [3]
 Missing character: There is no ù in font cmr12!
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
@@ -447,24 +447,24 @@ Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ú in font cmr12!
 Missing character: There is no ù in font cmr12!
- [3]
+ [4]
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ì in font cmr12!
- [4] <original.jpg, id=147, 256.96pt x 256.96pt>
+ <original.jpg, id=147, 256.96pt x 256.96pt>
 File: original.jpg Graphic file (type jpg)
  <use original.jpg>
 Package pdftex.def Info: original.jpg used on input line 121.
 (pdftex.def)             Requested size: 256.95937pt x 256.95937pt.
 
-<lilypad.jpg, id=148, 642.4pt x 428.60126pt>
+[5] <lilypad.jpg, id=157, 642.4pt x 428.60126pt>
 File: lilypad.jpg Graphic file (type jpg)
  <use lilypad.jpg>
 Package pdftex.def Info: lilypad.jpg used on input line 131.
-(pdftex.def)             Requested size: 390.25536pt x 260.38037pt.
+(pdftex.def)             Requested size: 455.2979pt x 303.77928pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
@@ -480,22 +480,13 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 File: lilypad.jpg Graphic file (type jpg)
 <use lilypad.jpg>
 Package pdftex.def Info: lilypad.jpg used on input line 145.
-(pdftex.def)             Requested size: 390.25536pt x 260.38037pt.
+(pdftex.def)             Requested size: 455.2979pt x 303.77928pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[5 <C:/Users/BKS/Documents/Harvard/Classes/Fall 2012/ApMath 120/project/images/
-tex/original.jpg>]
-
-LaTeX Warning: Text page 6 contains only floats.
-
-
-Overfull \vbox (3.17305pt too high) has occurred while \output is active []
-
-
 [6 <C:/Users/BKS/Documents/Harvard/Classes/Fall 2012/ApMath 120/project/images/
-tex/lilypad.jpg>]
+tex/original.jpg>]
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ú in font cmr12!
@@ -508,108 +499,56 @@ Missing character: There is no ì in font cmr12!
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ì in font cmr12!
- [7]
+ [7 <C:/Users/BKS/Documents/Harvard/Classes/Fall 2012/ApMath 120/project/images
+/tex/lilypad.jpg>] [8]
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ú in font cmr12!
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ù in font cmr12!
- [8]
-Overfull \hbox (236.97163pt too wide) in paragraph at lines 177--178
+ [9]
+Overfull \hbox (164.70164pt too wide) in paragraph at lines 177--178
 []\OT1/cmr/m/n/12 http://www.mathworks.com/products/image/examples.html?file=/p
 roducts/demos/shipping/images/ipexwatershed.html#2 
  []
 
 
-Overfull \hbox (15.97636pt too wide) in paragraph at lines 179--180
-[]\OT1/cmr/m/n/12 SOURCE B http://www.magnetic-resonance.org/MagRes%20Chapters/
-21[]03.htm 
- []
-
-
-Overfull \hbox (415.72308pt too wide) in paragraph at lines 180--181
+Overfull \hbox (343.4531pt too wide) in paragraph at lines 180--181
 []\OT1/cmr/m/n/12 SOURCE C http://12000.org/my[]courses/UCI[]COURSES/CREDIT[]CO
 URSES/fall[]2004/EECS[]207A[]UCI[]FALL[]2004my[]notesnabbasi[]EECS[]207A[]notes
 .pdf 
  []
 
-
-Overfull \hbox (10.6258pt too wide) in paragraph at lines 184--184
-[]\OT1/cmr/bx/n/17.28 Appendix A: Wa-ter-shed Seg-men-ta-tion Im-ages 
- []
-
 File: original.jpg Graphic file (type jpg)
 <use original.jpg>
 Package pdftex.def Info: original.jpg used on input line 189.
-(pdftex.def)             Requested size: 195.12767pt x 195.13086pt.
+(pdftex.def)             Requested size: 227.64894pt x 227.65071pt.
 File: lilypad.jpg Graphic file (type jpg)
  <use lilypad.jpg>
 Package pdftex.def Info: lilypad.jpg used on input line 189.
-(pdftex.def)             Requested size: 195.12767pt x 130.18364pt.
- [9]
-Overfull \hbox (29.50522pt too wide) in paragraph at lines 318--318
-[]\OT1/cmtt/m/n/12 %create disk shaped morphological structuring element of siz
-e 6 - picked so[] 
- []
-
-
-Overfull \hbox (4.8052pt too wide) in paragraph at lines 318--318
-[]\OT1/cmtt/m/n/12 %not to over or under segment, disk shaped as target structu
-re is round[] 
- []
-
-[10]
-Overfull \hbox (48.03023pt too wide) in paragraph at lines 318--318
-[]\OT1/cmtt/m/n/12 %figure, imshow(Iobrcbr), title('Opening-closing by reconstr
-uction (Iobrcbr)')[] 
- []
-
-
-Overfull \hbox (115.95526pt too wide) in paragraph at lines 318--318
+(pdftex.def)             Requested size: 227.64894pt x 151.8831pt.
+ [10] [11]
+Overfull \hbox (43.68527pt too wide) in paragraph at lines 318--318
 []\OT1/cmtt/m/n/12 %figure, imshow(fgm), title('Regional maxima of opening-clos
 ing by reconstruction (fgm)')[] 
  []
 
-
-Overfull \hbox (66.55524pt too wide) in paragraph at lines 318--318
-[]\OT1/cmtt/m/n/12 %figure, imshow(I2), title('Regional maxima superimposed on 
-original image (I2)')[] 
- []
-
-
-Overfull \hbox (10.98021pt too wide) in paragraph at lines 318--318
-[]\OT1/cmtt/m/n/12 %create a new morphological element to smooth out the foregr
-ound markers[] 
- []
-
-
-Overfull \hbox (134.48027pt too wide) in paragraph at lines 318--318
+[12]
+Overfull \hbox (62.21028pt too wide) in paragraph at lines 318--318
 []\OT1/cmtt/m/n/12 %figure, imshow(I3), title('Modified regional maxima superim
 posed on original image (fgm4)')[] 
  []
 
 
-Overfull \hbox (60.38023pt too wide) in paragraph at lines 318--318
-[]\OT1/cmtt/m/n/12 %figure, imshow(bw), title('Thresholded opening-closing by r
-econstruction (bw)')[] 
- []
-
-[11]
-Overfull \hbox (153.00528pt too wide) in paragraph at lines 318--318
+Overfull \hbox (80.73529pt too wide) in paragraph at lines 318--318
 []\OT1/cmtt/m/n/12 %figure, imshow(I4), title('Markers and object boundaries su
 perimposed on original image (I4)')[] 
  []
 
-
-Overfull \hbox (4.8052pt too wide) in paragraph at lines 318--318
-[]\OT1/cmtt/m/n/12 %superimpose color on original image to see what the shading
- represents[] 
- []
-
-[12]
+[13]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 340.
- [13]
+ [14]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 340.
 
 ("C:\Users\BKS\Documents\Harvard\Classes\Fall 2012\ApMath 120\project\images\te
@@ -618,29 +557,29 @@ Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 340.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 340.
 Package rerunfilecheck Info: File `apmth120_final_chen_sim.out' has not changed
 .
-(rerunfilecheck)             Checksum: 26B83B9ED4B6103B7A6823E665B6AD05;1530.
+(rerunfilecheck)             Checksum: 92CEB2071008A30ADBC584AC1AF49F16;1597.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  ) 
 Here is how much of TeX's memory you used:
- 6627 strings out of 494045
- 95097 string characters out of 3145975
- 183068 words of memory out of 3000000
- 9792 multiletter control sequences out of 15000+200000
+ 6664 strings out of 494045
+ 95770 string characters out of 3145975
+ 185484 words of memory out of 3000000
+ 9823 multiletter control sequences out of 15000+200000
  13173 words of font info for 51 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
- 29i,10n,43p,2062b,440s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 29i,11n,43p,2262b,440s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 <C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><
 C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/
 Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Pro
 gram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Progra
 m Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on apmth120_final_chen_sim.pdf (13 pages, 341307 bytes).
+Output written on apmth120_final_chen_sim.pdf (14 pages, 343237 bytes).
 PDF statistics:
- 233 PDF objects out of 1000 (max. 8388607)
- 54 named destinations out of 1000 (max. 500000)
- 195 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 243 PDF objects out of 1000 (max. 8388607)
+ 56 named destinations out of 1000 (max. 500000)
+ 203 words of extra memory for PDF output out of 10000 (max. 10000000)
 
